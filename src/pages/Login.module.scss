@@ -1,0 +1,345 @@
+/* ========================= */
+/* PAGE LAYOUT */
+/* ========================= */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
+.page {
+  min-height: 100vh;
+  display: grid;
+  font-family: "Inter", sans-serif;
+  grid-template-columns: 1fr 1fr;
+}
+
+/* Title + headline (right side + left title) */
+
+.page h1,
+.page h2 {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.page p,
+.page label,
+.page span,
+.page input,
+.page button {
+  font-family: "Inter", sans-serif;
+}
+/* ========================= */
+/* LEFT – FORM */
+/* ========================= */
+
+.formSection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: white;
+}
+
+.formWrap {
+  width: 100%;
+  max-width: 420px;
+}
+
+.logo {
+  color: #8b2f3c;
+  font-weight: 700;
+  margin-bottom: 32px;
+}
+
+h1 {
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #6b7280;
+  margin-bottom: 32px;
+  line-height: 1.6;
+}
+
+/* ========================= */
+/* INPUTS */
+/* ========================= */
+
+.field {
+  margin-bottom: 20px;
+
+  label {
+    font-size: 13px;
+    margin-bottom: 6px;
+    display: block;
+    color: #374151;
+  }
+}
+
+.inputWrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  height: 48px;
+  padding: 0 14px;
+
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  background: white;
+
+  svg {
+    color: #6b7280;
+  }
+
+  input {
+    flex: 1;
+    height: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 14px;
+  }
+}
+
+.inputWrap:focus-within {
+  border-color: #8b2f3c;
+  box-shadow: 0 0 0 3px rgba(139, 47, 60, 0.15);
+}
+
+.eye {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #6b7280;
+}
+
+.eyeSpacer {
+  width: 18px;
+  height: 18px;
+}
+
+.forgot {
+  display: block;
+  margin-top: 6px;
+  font-size: 12px;
+  text-align: right;
+  color: #8b2f3c;
+  cursor: pointer;
+}
+
+/* ========================= */
+/* BUTTONS */
+/* ========================= */
+
+.signIn {
+  width: 100%;
+  margin-top: 24px;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  background: #8b2f3c;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.divider {
+  margin: 24px 0;
+  text-align: center;
+  position: relative;
+
+  span {
+    background: white;
+    padding: 0 12px;
+    font-size: 12px;
+    color: #6b7280;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: #e5e7eb;
+    z-index: -1;
+  }
+}
+
+.oauth {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  background: #8b2f3c;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.signup {
+  margin-top: 24px;
+  text-align: center;
+  font-size: 14px;
+  color: #6b7280;
+
+  span {
+    color: #8b2f3c;
+    font-weight: 600;
+    cursor: pointer;
+  }
+}
+
+/* ========================= */
+/* RIGHT – BRAND */
+/* ========================= */
+
+.brandSection {
+  position: relative;
+  padding: 64px;
+  color: white;
+
+  background-size: auto 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  display: flex;
+  flex-direction: column;
+}
+
+/* Overlay for readability */
+.brandSection::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 0;
+}
+
+.brandSection > * {
+  position: relative;
+  z-index: 1;
+}
+
+.brandContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.brandSection h2 {
+  font-size: 36px;
+  line-height: 1.25;
+  margin-bottom: 24px;
+}
+
+blockquote {
+  max-width: 520px;
+  font-size: 16px;
+  line-height: 1.6;
+  opacity: 0.95;
+  margin-bottom: 32px;
+}
+
+.author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  span {
+    font-size: 13px;
+    opacity: 0.85;
+  }
+}
+
+.avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.35);
+}
+
+/* ========================= */
+/* TECH STACK */
+/* ========================= */
+
+/* ========================= */
+/* TECH STACK (CLEAN, NO BUBBLES) */
+/* ========================= */
+
+.techStack {
+  margin-top: auto;
+  padding-top: 48px;
+}
+
+.techStack p {
+  font-size: 13px;
+  letter-spacing: 0.18em;
+  opacity: 0.9;
+  margin-bottom: 28px;
+}
+
+/* layout */
+.techGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px 40px; /* bigger spacing */
+}
+
+/* item */
+.techGrid div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  font-size: 16px; /* 👈 bigger */
+  font-weight: 600;
+
+  color: rgba(255, 255, 255, 0.95);
+  opacity: 0.9;
+
+  /* ❌ no background, no border radius, no padding */
+}
+
+/* icon emphasis */
+.techGrid svg {
+  width: 18px;
+  height: 18px;
+  opacity: 0.9;
+}
+
+/* subtle hover (optional but nice) */
+.techGrid div:hover {
+  opacity: 1;
+}
+
+.signIn,
+.oauth {
+  display: flex; /* 👈 important */
+  align-items: center; /* vertical centering */
+  justify-content: center; /* horizontal centering */
+  text-align: center; /* fallback */
+}
+
+.sectionTitle {
+  color: #000000; /* 👈 change this to whatever you want */
+  font-size: 40px;
+  font-weight: 700;
+}
+
+.brandSection {
+  position: relative; /* required for absolute logo */
+}
+
+/* Top-right logo */
+.brandLogo {
+  position: absolute;
+  bottom: 230px;
+  left: 50px;
+
+  height: 40px; /* adjust as needed */
+  width: auto;
+
+  opacity: 0.95;
+}

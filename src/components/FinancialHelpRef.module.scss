@@ -1,0 +1,107 @@
+.panel {
+  width: 300px;
+  height: 100vh;
+  background: #ffffff;
+  border-left: 1px solid #e5e7eb;
+  padding: 20px;
+  overflow-y: auto;
+  flex-shrink: 0;
+}
+
+/* HEADER */
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+
+  h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #0f172a;
+  }
+}
+
+.closeBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #64748b;
+
+  &:hover {
+    color: #0f172a;
+  }
+}
+
+/* STATES */
+
+.loading,
+.empty {
+  font-size: 14px;
+  color: #64748b;
+}
+
+/* FILES */
+
+.fileList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.fileCard {
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 12px;
+}
+
+/* FILE HEADER */
+
+.fileHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #0f172a;
+  margin-bottom: 10px;
+}
+
+.fileName {
+  flex: 1;
+}
+
+/* METRICS */
+
+.metricList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.metricRow {
+  background: #f8fafc;
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+
+.metricKey {
+  font-size: 12px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.metricValue {
+  margin-top: 4px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.metricExcerpt {
+  margin-top: 4px;
+  font-size: 11px;
+  line-height: 1.4;
+  color: #64748b;
+}

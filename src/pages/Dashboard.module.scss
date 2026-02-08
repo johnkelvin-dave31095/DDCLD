@@ -1,0 +1,280 @@
+/* ======================================================
+   Page
+   ====================================================== */
+
+.page {
+  padding: 40px;
+  min-height: 100vh;
+  background: radial-gradient(
+    1200px circle at top,
+    #f8fafc 0%,
+    #f1f5f9 60%,
+    #eef2f7 100%
+  );
+}
+
+.loading {
+  padding: 32px;
+  font-size: 14px;
+  color: #475569;
+}
+
+/* ======================================================
+   Header
+   ====================================================== */
+
+.header {
+  margin-bottom: 24px;
+
+  h1 {
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: #0f172a;
+  }
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #64748b;
+}
+
+/* ======================================================
+   Card
+   ====================================================== */
+
+.card {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.04),
+    0 8px 24px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+}
+
+/* ======================================================
+   Table
+   ====================================================== */
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: rgba(248, 250, 252, 0.9);
+  backdrop-filter: blur(6px);
+  padding: 14px 18px;
+  font-weight: 600;
+  color: #475569;
+  border-bottom: 1px solid #e5e7eb;
+  text-align: left;
+}
+
+.table tbody td {
+  padding: 16px 18px;
+  border-bottom: 1px solid #f1f5f9;
+  vertical-align: top; /* 🔑 keeps columns aligned */
+}
+
+/* ======================================================
+   SAFE row hover (NO transform, NO flex)
+   ====================================================== */
+
+.table tbody tr:hover td {
+  background: #f8e9e99d;
+}
+
+/* ======================================================
+   Company
+   ====================================================== */
+
+.companyCell {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.companyName {
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.companyMeta {
+  font-size: 12px;
+  color: #64748b;
+}
+
+/* ======================================================
+   Progress
+   ====================================================== */
+
+.progressWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.progressText {
+  font-size: 12px;
+  color: #64748b;
+}
+
+.progressBar {
+  height: 6px;
+  background: #e5e7eb;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #8b2f3c, #911b2b);
+}
+
+/* ======================================================
+   Files
+   ====================================================== */
+
+.files {
+  text-align: center;
+  color: #475569;
+}
+
+/* ======================================================
+   Status
+   ====================================================== */
+
+.statusCell {
+  padding-top: 10px;
+}
+
+/* ======================================================
+   Action
+   ====================================================== */
+
+.actionCell {
+  padding-top: 10px;
+  text-align: center;
+}
+
+/* Placeholder dash */
+.actionPlaceholder {
+  color: #cbd5f5;
+  font-size: 14px;
+}
+
+/* ======================================================
+   Run Assessment Button
+   ====================================================== */
+
+.runBtn {
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 10px;
+  border: 1px solid #7c3aed;
+  background: #7c3aed;
+  color: #ffffff;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    box-shadow 0.15s ease;
+
+  &:hover {
+    background: #6d28d9;
+    box-shadow: 0 4px 10px rgba(124, 58, 237, 0.25);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+}
+
+/* ======================================================
+   Table header icons
+   ====================================================== */
+
+.th {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  svg {
+    color: #64748b;
+  }
+}
+
+.loadingWrap {
+  min-height: 240px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.loadingAnim {
+  width: 120px;
+  height: 120px;
+}
+
+.loadingText {
+  margin-top: 12px;
+  font-size: 14px;
+  color: #64748b;
+}
+
+.countCell {
+  color: #64748b; // or your brand dark
+  font-weight: 500;
+}
+
+.processingCell {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.processing {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+.done {
+  color: #15803d;
+  font-weight: 500;
+}
+
+.muted {
+  color: #9ca3af;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.financialCell {
+  min-width: 90px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.countCell {
+  color: #64748b;
+  font-weight: 500;
+  min-width: 70px;
+  white-space: nowrap;
+}

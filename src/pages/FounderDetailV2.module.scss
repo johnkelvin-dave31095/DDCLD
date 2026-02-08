@@ -1,0 +1,391 @@
+/* ================= PAGE ================= */
+
+.page {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+
+  background: #f8fafc;
+  min-height: 100vh;
+  color: #0f172a;
+}
+
+/* ================= HEADER ================= */
+
+.header {
+  margin-bottom: 28px;
+}
+
+.back {
+  background: none;
+  border: none;
+  padding: 0;
+  margin-bottom: 8px;
+  font-size: 13px;
+  color: #64748b;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.headerMain {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  h1 {
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin: 0;
+  }
+}
+
+.subtitle {
+  font-size: 13px;
+  color: #64748b;
+  margin-top: 4px;
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.helpIconBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #64748b;
+  display: inline-flex;
+  align-items: center;
+
+  &:hover {
+    color: #0f172a;
+  }
+}
+
+/* ================= CONTENT ================= */
+
+.content {
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/* ================= GRID ================= */
+
+.bottomGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  align-items: stretch;
+}
+
+/* ================= CARD ================= */
+
+.card {
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 18px 20px;
+  background: #ffffff;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  h3 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #0f172a;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+}
+
+/* ================= METRIC ROW ================= */
+
+.metricRow {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 0.8fr;
+  gap: 12px;
+  align-items: center;
+  padding: 6px 0;
+}
+
+.metricLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.metricValue {
+  font-size: 12px;
+  font-weight: 700;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  color: #0f172a;
+}
+
+.metricScore {
+  font-size: 12px;
+  font-weight: 700;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  color: #1f2937;
+}
+
+/* ================= SCORE COLORS ================= */
+
+.score0 {
+  color: #94a3b8;
+}
+
+.score25 {
+  color: #dc2626;
+}
+
+.score50 {
+  color: #f59e0b;
+}
+
+.score75 {
+  color: #16a34a;
+}
+
+.score100 {
+  color: #059669;
+}
+
+/* ================= RISK SUMMARY ================= */
+
+.riskFinal {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* ================= RISK PROFILES ================= */
+
+.riskVeryAttractive {
+  border-color: #059669;
+  background: #ecfdf5;
+}
+
+.riskAttractive {
+  border-color: #16a34a;
+  background: #f0fdf4;
+}
+
+.riskAcceptable {
+  border-color: #facc15;
+  background: #fefce8;
+}
+
+.riskCautionary {
+  border-color: #f59e0b;
+  background: #fffbeb;
+}
+
+.riskUnsatisfactory {
+  border-color: #fb923c;
+  background: #fff7ed;
+}
+
+.riskUnacceptable {
+  border-color: #dc2626;
+  background: #fef2f2;
+}
+
+/* ================= LOADING ================= */
+
+.loadingWrap {
+  position: fixed;
+  inset: 0; // full viewport
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.loadingAnim {
+  width: 260px;
+  height: 260px;
+}
+
+.loadingText {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #64748b;
+}
+
+/* ================= RIGHT-SIDE FINANCIAL HELP PANEL ================= */
+
+.financialHelpPanel {
+  width: 380px;
+  flex-shrink: 0;
+
+  background: #ffffff;
+  border-left: 1px solid #e5e7eb;
+  box-shadow: -8px 0 24px rgba(0, 0, 0, 0.08);
+
+  padding: 20px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.panelHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.panelClose {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #64748b;
+
+  &:hover {
+    color: #0f172a;
+  }
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 1024px) {
+  .bottomGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .page {
+    padding: 24px;
+  }
+
+  .content {
+    padding: 20px;
+  }
+
+  .metricRow {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  .metricValue,
+  .metricScore {
+    text-align: left;
+  }
+
+  .financialHelpPanel {
+    width: 100%;
+  }
+}
+
+.mainContent {
+  flex: 1;
+  padding: 40px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.dealTypeTabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.dealTab {
+  padding: 6px 12px;
+  font-size: 13px;
+  border-radius: 8px;
+  background: #f3f4f6;
+  color: #374151;
+  border: 1px solid #e5e7eb;
+  cursor: pointer;
+  transition: all 0.15s ease;
+
+  &:hover {
+    background: #e5e7eb;
+  }
+}
+
+.active {
+  background: #111827;
+  color: #ffffff;
+  border-color: #111827;
+}
+/* =========================
+   Risk Summary – Compact
+========================= */
+
+.riskHeadline {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #f9fafb;
+  cursor: pointer;
+
+  strong {
+    font-size: 14px;
+    font-weight: 600;
+    color: #111827;
+  }
+}
+
+.scoreMain {
+  font-size: 22px;
+  font-weight: 700;
+  color: #111827;
+  font-variant-numeric: tabular-nums;
+}
+
+/* subtle helper text */
+.breakdownHint {
+  margin-top: 6px;
+  font-size: 12px;
+  color: #9ca3af; // gray-400
+  text-align: right;
+}
+
+/* =========================
+   Hidden Breakdown
+========================= */
+
+.breakdown {
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px dashed rgba(0, 0, 0, 0.08);
+}
+
+.metricRowMuted {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  font-size: 13px;
+  color: #6b7280; // gray-500
+
+  span:last-child {
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+  }
+}

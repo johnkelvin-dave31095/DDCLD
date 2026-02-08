@@ -1,0 +1,51 @@
+.statusBadge {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: default;
+
+  /* Tooltip bubble */
+  &::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #0f172a;
+    color: #f8fafc;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 500;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s ease, transform 0.15s ease;
+    z-index: 20;
+  }
+
+  /* Tooltip arrow */
+  &::before {
+    content: "";
+    position: absolute;
+    bottom: calc(100% + 2px);
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 6px;
+    border-style: solid;
+    border-color: #0f172a transparent transparent transparent;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+    z-index: 20;
+  }
+
+  &:hover::after,
+  &:hover::before {
+    opacity: 1;
+  }
+}

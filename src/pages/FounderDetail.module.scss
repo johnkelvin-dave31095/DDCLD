@@ -1,0 +1,307 @@
+.page {
+  padding: 40px;
+  background: #f8fafc;
+  min-height: 100vh;
+  color: #0f172a;
+}
+
+/* Header */
+.header {
+  margin-bottom: 20px;
+}
+
+.back {
+  background: none;
+  border: none;
+  padding: 0;
+  margin-bottom: 6px;
+  font-size: 13px;
+  color: #64748b;
+  cursor: pointer;
+}
+
+.back:hover {
+  text-decoration: underline;
+}
+
+.headerMain {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  h1 {
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin: 0;
+  }
+}
+
+.subtitle {
+  font-size: 13px;
+  color: #64748b;
+}
+
+/* Tabs — underline only */
+.tabs {
+  display: flex;
+  gap: 28px;
+  border-bottom: 1px solid #e5e7eb;
+  margin-bottom: 24px;
+}
+
+.tab {
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+
+  padding: 12px 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: #64748b;
+  cursor: pointer;
+  position: relative;
+
+  transition:
+    color 0.15s ease,
+    text-shadow 0.15s ease;
+}
+
+.tab:hover {
+  color: #0f172a;
+  text-shadow: 0 0 3px rgba(99, 102, 241, 0.12);
+}
+
+.activeTab {
+  color: #0f172a;
+  font-weight: 600;
+}
+
+.activeTab::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: #7c2d34;
+  border-radius: 1px;
+}
+
+/* Content */
+.content {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 24px;
+}
+
+/* Rows (list-based, no cards) */
+.row {
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.rowHeader {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+
+  padding: 16px 4px;
+  cursor: pointer;
+}
+
+.rowTitle {
+  font-size: 14px;
+  font-weight: 500;
+  color: #0f172a;
+}
+
+.rowHeader:hover .rowTitle {
+  color: #7c2d34;
+}
+
+.toggle {
+  font-size: 18px;
+  color: #94a3b8;
+}
+
+/* Expanded content */
+.expanded {
+  padding: 0 4px 20px 4px;
+}
+
+.text {
+  font-size: 14px;
+  line-height: 1.55;
+  color: #0f172a;
+}
+
+.missing {
+  font-size: 14px;
+  font-style: italic;
+  color: #94a3b8;
+}
+
+/* Sources */
+.sources {
+  margin-top: 10px;
+  font-size: 12px;
+  color: #64748b;
+
+  ul {
+    padding-left: 16px;
+    margin-top: 6px;
+  }
+}
+
+/* Loading */
+.loading {
+  padding: 32px;
+  font-size: 14px;
+}
+
+.tabInner {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  svg {
+    color: #94a3b8; // muted slate
+  }
+}
+
+/* Active tab icon slightly darker */
+.activeTab .tabInner svg {
+  color: #7c2d34;
+}
+
+/* Hover icon very subtle */
+.tab:hover .tabInner svg {
+  color: #64748b;
+}
+
+.overviewGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.loadingWrap {
+  height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.loadingAnim {
+  width: 120px;
+  height: 120px;
+}
+
+.loadingText {
+  margin-top: 12px;
+  font-size: 14px;
+  color: #9ca3af; // subtle gray
+}
+
+.financialSection {
+  margin-top: 32px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.financialCard {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+}
+
+.financialScoreRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.financialScore {
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.financialPct {
+  font-size: 20px;
+  font-weight: 600;
+  color: #ff7a00;
+}
+
+.financialList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  li {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+  }
+}
+
+/* ================= Financial Tables ================= */
+
+.financialTables {
+  margin-top: 32px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.financialBlock {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.financialBlock h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #0f172a;
+  margin-bottom: 12px;
+}
+
+.financialTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.financialTable th {
+  text-align: left;
+  font-weight: 500;
+  color: #64748b;
+  padding: 8px 4px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.financialTable td {
+  padding: 8px 4px;
+  border-bottom: 1px solid #f1f5f9;
+  color: #0f172a;
+}
+
+.financialTable tr:last-child td {
+  border-bottom: none;
+}
+
+/* Optional: align numbers nicely */
+.financialTable td:nth-child(2),
+.financialTable td:nth-child(3) {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}

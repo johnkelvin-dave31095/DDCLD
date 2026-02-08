@@ -1,0 +1,290 @@
+.topbar {
+  height: 64px;
+  background: #ffffff;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 20px;
+}
+
+/* LEFT */
+.left {
+  display: flex;
+  align-items: center;
+}
+
+.searchBox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  background: #f4f5f7;
+  padding: 6px 10px;
+  border-radius: 10px;
+  width: 280px;
+}
+
+.searchBox input {
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 14px;
+  flex: 1;
+  color: #333;
+}
+
+.searchIcon {
+  color: #888;
+}
+
+.shortcut {
+  font-size: 12px;
+  color: #777;
+  background: #e6e7eb;
+  padding: 2px 6px;
+  border-radius: 6px;
+}
+
+/* RIGHT */
+.right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* CREDITS */
+.credits {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  background: #f3f2ff;
+  color: #070842;
+
+  padding: 6px 12px;
+  border-radius: 999px;
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.creditValue {
+  font-weight: 700;
+}
+
+/* ICON BUTTON */
+.iconBtn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #444;
+}
+
+.iconBtn:hover {
+  color: #000;
+}
+
+/* USER */
+.user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+
+  background: #8b2f3c;
+  color: #ffffff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-weight: 600;
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.name {
+  font-size: 14px;
+  font-weight: 500;
+  color: #000000;
+}
+
+.email {
+  font-size: 12px;
+  color: #888;
+}
+
+.caret {
+  color: #777;
+}
+
+/* USER MENU */
+.userMenu {
+  position: relative;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 6px 8px;
+  border-radius: 10px;
+  transition: background 0.15s ease;
+
+  &:hover {
+    background: rgba(113, 73, 255, 0.08);
+  }
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #8b2f3c;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.name {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.email {
+  font-size: 11px;
+  color: #6b7280;
+}
+
+.caret {
+  color: #6b7280;
+  transition: transform 0.15s ease;
+}
+
+.caretOpen {
+  transform: rotate(180deg);
+}
+
+/* DROPDOWN */
+.dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  width: 180px;
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+  padding: 6px;
+  z-index: 50;
+}
+
+.dropdownItem {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  color: #111827;
+
+  &:hover {
+    background: rgba(239, 68, 68, 0.08);
+    color: #ef4444;
+  }
+
+  svg {
+    flex-shrink: 0;
+  }
+}
+
+/* Dropdown header */
+.dropdownHeader {
+  padding: 10px 12px;
+}
+
+.dropdownName {
+  font-size: 13px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.dropdownEmail {
+  font-size: 11px;
+  color: #6b7280;
+}
+
+/* Divider */
+.divider {
+  height: 1px;
+  background: #e5e7eb;
+  margin: 6px 0;
+}
+
+/* Dropdown items */
+.dropdownItem {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  color: #111827;
+  text-align: left;
+
+  &:hover:not(:disabled) {
+    background: rgba(113, 73, 255, 0.08);
+  }
+
+  &:disabled {
+    color: #9ca3af;
+    cursor: not-allowed;
+  }
+}
+
+/* Logout emphasis */
+.logoutItem {
+  color: #ef4444;
+
+  &:hover {
+    background: rgba(239, 68, 68, 0.08);
+  }
+}
