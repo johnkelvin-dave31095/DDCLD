@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export type PresignRequest = {
-  method: "PUT" | "GET";
+  method: "POST";
   key: string;
   content_type?: string;
   expires_in?: number;
@@ -15,7 +15,7 @@ export type PresignResponse = {
 };
 
 const presignClient = axios.create({
-  baseURL: "https://bs0lamxw7h.execute-api.us-east-1.amazonaws.com/dev",
+  baseURL: "https://81ct9stc9l.execute-api.us-east-1.amazonaws.com/dev",
   headers: { "Content-Type": "application/json" },
 });
 

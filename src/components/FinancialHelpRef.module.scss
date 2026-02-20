@@ -105,3 +105,13 @@
   line-height: 1.4;
   color: #64748b;
 }
+
+.fileLink {
+  color: #2563eb;
+  font-weight: 600;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

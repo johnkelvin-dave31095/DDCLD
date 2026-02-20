@@ -343,3 +343,52 @@ blockquote {
 
   opacity: 0.95;
 }
+
+.field {
+  label {
+    color: #0f172a;
+    font-weight: 500;
+  }
+}
+
+.inputWrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #0f172a;
+}
+
+.inputWrap input {
+  color: #0f172a !important;
+  background-color: transparent;
+  font-weight: 400;
+  -webkit-text-fill-color: #0f172a;
+}
+
+.inputWrap input::placeholder {
+  color: #64748b;
+  opacity: 1;
+}
+
+.inputWrap svg {
+  color: #0f172a;
+}
+
+.inputWrap input:-webkit-autofill,
+.inputWrap input:-webkit-autofill:hover,
+.inputWrap input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #0f172a;
+  box-shadow: 0 0 0px 1000px white inset;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+.eye {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #0f172a;
+}
+
+.forgot {
+  color: #0f172a;
+}

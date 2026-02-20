@@ -111,15 +111,37 @@ export default function FinancialHelpRef({ founder_id, onClose }: Props) {
               {/* FILE HEADER */}
               <div className={styles.fileHeader}>
                 <FileText size={14} />
-                <span className={styles.fileName}>{filename}</span>
+                {rows[0].sharepoint_url ? (
+                  <a
+                    href={rows[0].sharepoint_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.fileLink}
+                  >
+                    {filename}
+                  </a>
+                ) : (
+                  <span className={styles.fileName}>{filename}</span>
+                )}
               </div>
 
               {/* METRICS */}
               <div className={styles.metricList}>
-                {rows.map((m) => (
-                  <div key={m.metric_id} className={styles.metricRow}>
+                {rows.map((m, index) => (
+                  <div
+                    key={`${m.metric_key}-${m.sub_key}-${index}`}
+                    className={styles.metricRow}
+                  >
                     {/* 1️⃣ metric_key */}
-                    <div className={styles.metricKey}>{m.metric_key}</div>
+                    <div className={styles.metricKey}>
+                      {m.metric_key}
+                      {m.sub_key && (
+                        <span className={styles.metricSubKey}>
+                          {" "}
+                          ({m.sub_key})
+                        </span>
+                      )}
+                    </div>
 
                     {/* 2️⃣ value */}
                     {typeof m.value_numeric === "number" && (
@@ -127,12 +149,6 @@ export default function FinancialHelpRef({ founder_id, onClose }: Props) {
                         {formatNumericValue(m.value_numeric)}
                       </div>
                     )}
-
-                    {/* 3️⃣ excerpt (optional, muted) */}
-                    {typeof m.excerpt === "string" &&
-                      m.excerpt.trim() !== "" && (
-                        <div className={styles.metricExcerpt}>{m.excerpt}</div>
-                      )}
                   </div>
                 ))}
               </div>

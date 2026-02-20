@@ -149,6 +149,8 @@ export type AreaScore = {
 /**
  * Response when fetching all founders' scores
  */
+/* ================= API TYPES ================= */
+
 export type ViewAllFounderScoresResponse = {
   founders: FounderScore[];
 };
@@ -159,6 +161,8 @@ export function getFounderScore(founder_id: number) {
   });
 }
 
+/* ================= FINANCIAL TYPES ================= */
+
 export type FinancialSummary = {
   deal_type_id: string | null;
   total_score: number | null;
@@ -167,22 +171,39 @@ export type FinancialSummary = {
 };
 
 export type FinancialDetails = {
-  financial_inputs?: Record<string, number | null>;
-  pro_forma_inputs?: Record<string, number | null>;
+  financial_assessment?: Record<string, number | null>;
   pro_forma_outputs?: Record<string, number | null>;
-  revenue_and_margin?: Record<string, number | null>;
-  assessment?: Record<string, number | null>;
   sources?: any;
 };
+
+export type Financials = {
+  summary?: FinancialSummary | null;
+  details?: FinancialDetails | null;
+  metric_scores?: Record<string, number>;
+};
+
+/* ================= RISK TYPES ================= */
+
+export type RiskSummaryItem = {
+  deal_type_id: string;
+  financial_historical: { score: number; weight: number };
+  financial_proforma: { score: number; weight: number };
+  qualitative: { score: number; weight: number };
+  total_weighted_score: number;
+  risk_label: string;
+  risk_code: number;
+};
+
+/* ================= MAIN RESPONSE ================= */
 
 export type FounderScore = {
   founder_id: number;
   areas: any[];
-  financials?: {
-    summary?: FinancialSummary | null;
-    details?: FinancialDetails | null;
-  } | null;
+  financials?: Financials | null;
+  risk_summary?: RiskSummaryItem[];
 };
+
+/* ================= GET ALL ================= */
 
 export function getAllFounderScores() {
   return post<ViewAllFounderScoresResponse>("/founders/viewscore", {});
@@ -258,18 +279,16 @@ export function updateFounderMissingInfo(data: UpdateMissingInfoRequest) {
 
 export type FinancialMetric = {
   file_id: number;
-  filename: string | null; // 👈 ADD THIS
-  metric_id: number;
+  filename: string | null;
+  sharepoint_url: string | null;
+
   metric_key: string;
+  sub_key: string | null;
+
   value_numeric: number | null;
   value_text: string | null;
-  unit: string | null;
-  value_type: string | null;
-  period_year: number | null;
-  period_label: string | null;
-  confidence: number | null;
-  excerpt: string | null;
-  created_at: string;
+
+  created_at: string | null;
 };
 
 export type GetFinancialRefResponse = {
