@@ -1,375 +1,223 @@
-/* ================= LAYOUT ================= */
-
-.wrapper {
-  display: grid;
-  grid-template-columns: 1fr 260px; /* LEFT cards | RIGHT score */
-  gap: 20px;
-}
-
-/* ================= GRID ================= */
-
 .grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
+  grid-template-columns: repeat(2, 1fr); /* always 2 */
+  gap: 24px;
+}
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
 }
 
-/* ================= CARD ================= */
+/* CARD */
 
 .card {
   background: #ffffff;
+  border-radius: 16px;
+  padding: 20px;
   border: 1px solid #e5e7eb;
-  border-radius: 14px;
-  padding: 14px;
-
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 14px;
 }
 
-.cardHeader h3 {
-  font-size: 14px;
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* TITLE */
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   font-weight: 600;
+  font-size: 14px;
+}
+
+.titleText {
+  color: #0f172a; /* ALWAYS BLACK */
+}
+
+.iconWrapper {
+  display: flex;
+  align-items: center;
+}
+
+/* AREA COLORS (icon + bar only) */
+
+.management {
+  color: #16a34a;
+}
+
+.industry {
+  color: #3b82f6;
+}
+
+.marketability {
+  color: #f59e0b;
+}
+
+.business {
+  color: #ef4444;
+}
+
+/* SCORE */
+
+.points {
+  font-size: 15px;
+  font-weight: 700;
   color: #0f172a;
 }
 
-/* ================= CRITERIA ================= */
+/* PROGRESS BAR */
 
-.criteria {
+.progressBar {
+  height: 6px;
+  background: #e5e7eb;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.5s ease;
+  background-color: currentColor;
+}
+
+/* BUTTON */
+
+.breakdownBtn {
+  background: none;
+  border: none;
+  font-size: 13px;
+  cursor: pointer;
+  padding: 0;
+  align-self: flex-start;
+  color: #2563eb;
+}
+
+.breakdownBtn:hover {
+  text-decoration: underline;
+}
+
+/* FOOTER */
+
+.footerRow {
+  margin-top: auto;
+  padding-top: 10px;
+  border-top: 1px dashed #e2e8f0;
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* MODAL */
+
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  backdrop-filter: blur(8px);
+  background: rgba(15, 23, 42, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: #ffffff;
+  width: 600px;
+  max-height: 80vh;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.25),
+    0 2px 10px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+}
+
+.modalHeader {
+  padding: 20px 24px;
+  border-bottom: 1px solid #f1f5f9;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.closeBtn {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: #94a3b8;
+}
+
+.closeBtn:hover {
+  color: #0f172a;
+}
+
+.modalContent {
+  padding: 24px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* CRITERIA */
+
+.criterion {
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
 
-.criterionRow {
-  padding-top: 6px;
-}
-
 .criterionHeader {
-  width: 100%;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-
-  background: transparent;
-  border: none;
-  padding: 4px 0;
-  cursor: pointer;
-
-  font-size: 12px;
-  outline: none;
-}
-
-.active {
-  border-bottom: 2px solid #7c2d34; /* selected underline */
-  padding-bottom: 6px;
-}
-
-.criterionName {
   font-weight: 600;
-  color: #0f172a;
+  font-size: 14px;
 }
 
 .score {
-  font-size: 12px;
   font-weight: 700;
 }
 
-.score.strong {
-  color: #047857;
+.weak {
+  color: #ef4444;
 }
 
-.score.neutral {
-  color: #92400e;
+.neutral {
+  color: #f59e0b;
 }
 
-.score.weak {
-  color: #991b1b;
+.strong {
+  color: #16a34a;
 }
 
-/* ================= DETAILS ================= */
-
-.details {
-  margin-top: 6px;
-  font-size: 11px;
-  color: #475569;
-}
-
-.answer {
-  color: #0f172a;
-  margin-bottom: 4px;
-}
-
-.missing {
-  font-style: italic;
-  color: #94a3b8;
+.answerBox {
+  background: #f8fafc;
+  color: #000000;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 13px;
+  border: 1px solid #e2e8f0;
 }
 
 .rule {
+  font-size: 12px;
   color: #64748b;
 }
 
 .sources {
-  font-size: 10px;
+  font-size: 12px;
   color: #94a3b8;
-}
-
-/* ================= RIGHT PANEL ================= */
-
-.riskPanel {
-  border-radius: 14px;
-  padding: 18px;
-  text-align: center;
-  font-weight: 600;
-}
-
-.riskScore {
-  font-size: 42px;
-  margin-bottom: 6px;
-}
-
-.riskLabel {
-  font-size: 16px;
-}
-
-.riskRange {
-  font-size: 12px;
-  opacity: 0.8;
-  margin-top: 6px;
-}
-
-/* ================= RISK COLORS ================= */
-
-.veryAttractive {
-  background: #00b050;
-  color: #ffffff;
-}
-
-.attractive {
-  background: #92d050;
-  color: #0f172a;
-}
-
-.acceptable {
-  background: #ffff00;
-  color: #0f172a;
-}
-
-.cautionary {
-  background: #ffc000;
-  color: #0f172a;
-}
-
-.unsatisfactory {
-  background: #7030a0;
-  color: #ffffff;
-}
-
-.unacceptable {
-  background: #ff0000;
-  color: #ffffff;
-}
-
-/* ================= RESPONSIVE ================= */
-
-@media (max-width: 1200px) {
-  .wrapper {
-    grid-template-columns: 1fr;
-  }
-
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-/* ================= LAYOUT ================= */
-
-.wrapper {
-  display: grid;
-  grid-template-columns: 1fr 260px; /* cards | hero */
-  gap: 24px;
-  align-items: start; /* 👈 cards grow naturally */
-}
-
-/* ================= GRID ================= */
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-}
-
-/* ================= AREA CARD ================= */
-
-.card {
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
-  border-radius: 14px;
-  padding: 16px;
-
-  display: block; /* 👈 no flex forcing height */
-}
-
-/* ================= HERO SCORE ================= */
-
-.scoreHero {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  padding: 24px;
-  border-radius: 18px;
-}
-
-/* Circle */
-
-.scoreCircle {
-  width: 160px;
-  height: 160px;
-  border-radius: 50%;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  margin-bottom: 16px;
-}
-
-.scoreValue {
-  font-size: 48px;
-  font-weight: 700;
-  line-height: 1;
-}
-
-/* Meta */
-
-.scoreMeta {
-  text-align: center;
-}
-
-.scoreLabel {
-  font-size: 16px;
-  font-weight: 600;
-  margin-bottom: 4px;
-}
-
-.scoreRange {
-  font-size: 12px;
-  opacity: 0.8;
-}
-
-/* ================= RISK COLORS ================= */
-
-.veryAttractive {
-  background: #00b050;
-  color: #ffffff;
-}
-
-.attractive {
-  background: #92d050;
-  color: #0f172a;
-}
-
-.acceptable {
-  background: #ffff00;
-  color: #0f172a;
-}
-
-.cautionary {
-  background: #ffc000;
-  color: #0f172a;
-}
-
-.unsatisfactory {
-  background: #7030a0;
-  color: #ffffff;
-}
-
-.unacceptable {
-  background: #ff0000;
-  color: #ffffff;
-}
-
-/* ================= RESPONSIVE ================= */
-
-@media (max-width: 1200px) {
-  .wrapper {
-    grid-template-columns: 1fr;
-  }
-
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .scoreHero {
-    margin-top: 16px;
-  }
-}
-
-// .card button:hover {
-//   border-bottom: none !important;
-// }
-
-// .card button:hover {
-//   background: transparent !important;
-// }
-
-/* ================= CLICKABLE CRITERION ROW ================= */
-
-.criterionHeader {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  background: transparent !important;
-  border: none !important;
-  border-radius: 0 !important; /* 🔥 prevents box look */
-  padding: 4px 0;
-  cursor: pointer;
-
-  font-size: 12px;
-  text-align: left;
-
-  outline: none !important;
-  box-shadow: none !important;
-}
-
-/* 🚫 Kill ALL hover visuals */
-.criterionHeader:hover {
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-}
-
-/* 🚫 Kill focus outline (keyboard safe handled elsewhere) */
-.criterionHeader:focus,
-.criterionHeader:focus-visible {
-  outline: none !important;
-  box-shadow: none !important;
-}
-
-/* ✅ SELECTED STATE = UNDERLINE ONLY */
-.active {
-  border-bottom: 2px solid #7c2d34 !important; /* 👈 CHANGE COLOR HERE */
-  padding-bottom: 6px;
-}
-
-/* ================= QUALITATIVE TITLE ICONS ================= */
-
-.cardTitle {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.titleIcon {
-  display: inline-flex;
-  align-items: center;
-  color: #64748b; /* muted slate, same tone as UI */
-}
-
-.grid {
-  grid-column: 1 / -1;
+  word-break: break-word;
 }

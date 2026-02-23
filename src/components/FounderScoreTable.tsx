@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { ReactNode } from "react";
-
+import { motion, AnimatePresence } from "framer-motion";
 import { Users, Factory, Megaphone, Briefcase } from "lucide-react";
 
 import styles from "./FounderScoreTable.module.scss";
@@ -22,8 +22,6 @@ type Area = {
   name: string;
   score_summary: {
     average: number | null;
-    min: number | null;
-    max: number | null;
   };
   criteria: Criterion[];
 };
@@ -42,141 +40,144 @@ const AREA_ICONS: Record<string, ReactNode> = {
   business: <Briefcase size={16} />,
 };
 
-/* ================= COMPONENT ================= */
-
 export default function FounderScoreTable({ areas }: Props) {
-  const [openKey, setOpenKey] = useState<string | null>(null);
+  const [activeArea, setActiveArea] = useState<Area | null>(null);
 
-  // 🔑 TOTAL SCORE = SUM of all criteria scores
-  // const totalScore = areas.reduce(
-  //   (sum, area) => sum + area.criteria.reduce((s, c) => s + c.score_value, 0),
-  //   0,
-  // );
+  /* ESC CLOSE */
+  useEffect(() => {
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setActiveArea(null);
+    };
 
-  // const risk = getRiskProfile(totalScore);
+    if (activeArea) {
+      window.addEventListener("keydown", handleEsc);
+    }
+
+    return () => {
+      window.removeEventListener("keydown", handleEsc);
+    };
+  }, [activeArea]);
 
   return (
-    <div className={styles.wrapper}>
-      {/* ================= LEFT: SCORE CARDS ================= */}
+    <>
       <div className={styles.grid}>
-        {areas.map((area) => (
-          <div key={area.key} className={styles.card}>
-            <div className={styles.cardHeader}>
-              <h3 className={styles.cardTitle}>
-                {AREA_ICONS[area.key] && (
-                  <span className={styles.titleIcon}>
+        {areas.map((area) => {
+          const totalPoints = area.criteria.reduce(
+            (sum, c) => sum + c.score_value,
+            0,
+          );
+          const maxPoints = area.criteria.length * 5;
+          const avg = area.score_summary?.average ?? 0;
+          const progressPercent = (totalPoints / maxPoints) * 100;
+
+          const areaColorClass =
+            area.key === "management"
+              ? styles.management
+              : area.key === "industry"
+                ? styles.industry
+                : area.key === "marketability"
+                  ? styles.marketability
+                  : styles.business;
+
+          return (
+            <div key={area.key} className={styles.card}>
+              <div className={styles.cardHeader}>
+                <div className={styles.title}>
+                  <span className={`${styles.iconWrapper} ${areaColorClass}`}>
                     {AREA_ICONS[area.key]}
                   </span>
-                )}
-                {area.name}
-              </h3>
+
+                  <span className={styles.titleText}>{area.name}</span>
+                </div>
+
+                <div className={styles.points}>
+                  {totalPoints} / {maxPoints}
+                </div>
+              </div>
+
+              {/* PROGRESS BAR */}
+              <div className={styles.progressBar}>
+                <div
+                  className={`${styles.progressFill} ${areaColorClass}`}
+                  style={{ width: `${progressPercent}%` }}
+                />
+              </div>
+
+              <button
+                className={styles.breakdownBtn}
+                onClick={() => setActiveArea(area)}
+              >
+                View Breakdown
+              </button>
+
+              <div className={styles.footerRow}>
+                <span>Average Score</span>
+                <strong>{avg.toFixed(2)}</strong>
+              </div>
             </div>
+          );
+        })}
+      </div>
 
-            <div className={styles.criteria}>
-              {area.criteria.map((c) => {
-                const key = `${area.key}:${c.key}`;
-                const isOpen = openKey === key;
+      {/* ================= MODAL ================= */}
 
-                return (
-                  <div key={key} className={styles.criterionRow}>
-                    <button
-                      type="button"
-                      className={`${styles.criterionHeader} ${
-                        isOpen ? styles.active : ""
-                      }`}
-                      onClick={() => setOpenKey(isOpen ? null : key)}
-                    >
-                      <span className={styles.criterionName}>{c.name}</span>
+      <AnimatePresence>
+        {activeArea && (
+          <motion.div
+            className={styles.modalOverlay}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setActiveArea(null)}
+          >
+            <motion.div
+              className={styles.modal}
+              initial={{ y: 40, opacity: 0, scale: 0.96 }}
+              animate={{ y: 0, opacity: 1, scale: 1 }}
+              exit={{ y: 20, opacity: 0, scale: 0.96 }}
+              transition={{ type: "spring", stiffness: 260, damping: 24 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className={styles.modalHeader}>
+                <h3>{activeArea.name}</h3>
+                <button
+                  className={styles.closeBtn}
+                  onClick={() => setActiveArea(null)}
+                >
+                  ✕
+                </button>
+              </div>
 
+              <div className={styles.modalContent}>
+                {activeArea.criteria.map((c) => (
+                  <div key={c.key} className={styles.criterion}>
+                    <div className={styles.criterionHeader}>
+                      <span>{c.name}</span>
                       <span
                         className={`${styles.score} ${styles[c.score_key]}`}
                       >
                         {c.score_value}
                       </span>
-                    </button>
+                    </div>
 
-                    {isOpen && (
-                      <div className={styles.details}>
-                        <div
-                          className={
-                            c.answer === "Not mentioned in provided materials."
-                              ? styles.missing
-                              : styles.answer
-                          }
-                        >
-                          {c.answer || "—"}
-                        </div>
+                    <div className={styles.answerBox}>{c.answer || "—"}</div>
 
-                        <div className={styles.rule}>
-                          Rule: {c.rule_description}
-                        </div>
+                    <div className={styles.rule}>
+                      <strong>Rule:</strong> {c.rule_description}
+                    </div>
 
-                        {c.sources && c.sources.length > 0 && (
-                          <div className={styles.sources}>
-                            Sources: {c.sources.join(", ")}
-                          </div>
-                        )}
+                    {c.sources && c.sources.length > 0 && (
+                      <div className={styles.sources}>
+                        <strong>Sources:</strong> {c.sources.join(", ")}
                       </div>
                     )}
                   </div>
-                );
-              })}
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* ================= RIGHT: TOTAL SCORE ================= */}
-      {/* <div className={styles.scoreHero}>
-        <div className={`${styles.scoreCircle} ${styles[risk.className]}`}>
-          <span className={styles.scoreValue}>{totalScore}</span>
-        </div>
-
-        <div className={styles.scoreMeta}>
-          <div className={styles.scoreLabel}>{risk.label}</div>
-          <div className={styles.scoreRange}>Score Range: {risk.range}</div>
-        </div>
-      </div> */}
-    </div>
+                ))}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }
-
-/* ================= HELPERS ================= */
-
-// function getRiskProfile(score: number) {
-//   if (score >= 85)
-//     return {
-//       label: "Very Attractive",
-//       range: "85 – 100",
-//       className: "veryAttractive",
-//     };
-//   if (score >= 65)
-//     return {
-//       label: "Attractive",
-//       range: "65 – 84",
-//       className: "attractive",
-//     };
-//   if (score >= 45)
-//     return {
-//       label: "Acceptable",
-//       range: "45 – 64",
-//       className: "acceptable",
-//     };
-//   if (score >= 30)
-//     return {
-//       label: "Cautionary",
-//       range: "30 – 44",
-//       className: "cautionary",
-//     };
-//   if (score >= 15)
-//     return {
-//       label: "Unsatisfactory",
-//       range: "15 – 29",
-//       className: "unsatisfactory",
-//     };
-//   return {
-//     label: "Unacceptable",
-//     range: "0 – 14",
-//     className: "unacceptable",
-//   };
-// }

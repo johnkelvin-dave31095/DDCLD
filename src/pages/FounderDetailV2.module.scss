@@ -1,46 +1,33 @@
 /* ================= PAGE ================= */
 
 .page {
-  display: flex;
-  flex-direction: row;
-  align-items: stretch;
-
-  background: #f8fafc;
   min-height: 100vh;
-  color: #0f172a;
+  background: #f8fafc;
+  padding: 24px 48px;
 }
 
-/* ================= HEADER ================= */
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
 
-.header {
-  margin-bottom: 28px;
+/* ================= TOP BAR ================= */
+
+.topBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
 }
 
 .back {
   background: none;
   border: none;
-  padding: 0;
-  margin-bottom: 8px;
   font-size: 13px;
   color: #64748b;
   cursor: pointer;
-
-  &:hover {
-    text-decoration: underline;
-  }
-}
-
-.headerMain {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-
-  h1 {
-    font-size: 28px;
-    font-weight: 600;
-    letter-spacing: -0.02em;
-    margin: 0;
-  }
 }
 
 .subtitle {
@@ -49,387 +36,325 @@
   margin-top: 4px;
 }
 
-.headerActions {
+/* ================= HERO ================= */
+
+.heroWrapper {
   display: flex;
-  align-items: center;
-  gap: 8px;
+  justify-content: center;
+  margin-bottom: 40px;
 }
 
-.helpIconBtn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: #64748b;
-  display: inline-flex;
-  align-items: center;
+.heroCard {
+  width: 100%;
+  max-width: 900px;
+  padding: 40px 56px;
+  border-radius: 24px;
+  background: #ffffff; /* force white */
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.06);
+  text-align: center;
+  color: #0f172a; /* 🔥 ensure text black */
+}
 
-  &:hover {
-    color: #0f172a;
-  }
+.heroCard h2 {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.heroScore {
+  font-size: 56px;
+  font-weight: 700;
+  margin: 10px 0;
+}
+
+.riskBadge {
+  display: inline-block;
+  padding: 10px 24px;
+  border-radius: 999px;
+  background: #f3e8c8;
+  font-weight: 600;
+  margin-bottom: 28px;
+  color: #0f172a; /* 🔥 ensure black */
+}
+
+/* ================= DEAL TYPE TABS ================= */
+
+.dealTypeTabs {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+
+.dealTab {
+  padding: 8px 18px;
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+  background: #000000;
+  cursor: pointer;
+  font-size: 13px;
+  transition: all 0.15s ease;
+}
+
+.dealTab:hover {
+  background: #8d3a3a;
+}
+
+.active {
+  background: #00164b;
+  color: #ffffff;
+  border-color: #0f172a;
+}
+
+/* ================= HERO BREAKDOWN ================= */
+
+.heroBreakdown {
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+}
+
+.breakdownItem {
+  width: 140px;
+  text-align: left;
+  color: #0f172a; /* 🔥 ensure black */
+}
+
+.breakdownItem span {
+  font-size: 13px;
+  color: #64748b;
+}
+
+.breakdownItem strong {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* PROGRESS BARS */
+
+.progressMini {
+  height: 6px;
+  background: #e5e7eb;
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 6px 0;
+}
+
+.progressMiniFill {
+  height: 100%;
+  border-radius: 4px;
+}
+
+/* COLOR PER TYPE */
+
+.greenBar {
+  background: #16a34a;
+}
+
+.orangeBar {
+  background: #f59e0b;
+}
+
+.grayBar {
+  background: #cbd5e1;
 }
 
 /* ================= CONTENT ================= */
 
 .content {
-  padding: 28px;
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 32px;
 }
 
-/* ================= GRID ================= */
+/* ================= FINANCIAL GRID ================= */
 
 .bottomGrid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-  align-items: stretch;
+  grid-template-columns: repeat(auto-fit, minmax(520px, 1fr));
+  gap: 28px;
 }
 
 /* ================= CARD ================= */
 
 .card {
   border: 1px solid #e5e7eb;
-  border-radius: 16px;
-  padding: 18px 20px;
+  border-radius: 18px;
+  padding: 22px 24px;
   background: #ffffff;
-  height: 100%;
   display: flex;
   flex-direction: column;
-
-  h3 {
-    font-size: 14px;
-    font-weight: 600;
-    color: #0f172a;
-    margin-bottom: 14px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
 }
 
-/* ================= METRIC ROW ================= */
-
-.metricRow {
-  display: grid;
-  grid-template-columns: 1.4fr 1fr 0.8fr;
-  gap: 12px;
-  align-items: center;
-  padding: 6px 0;
-}
-
-.metricLabel {
-  display: inline-flex;
+.card h3 {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 12px;
-  font-weight: 600;
-  color: #0f172a;
 }
 
-.metricValue {
-  font-size: 12px;
-  font-weight: 700;
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-  color: #0f172a;
-}
-
-.metricScore {
-  font-size: 12px;
-  font-weight: 700;
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-  color: #1f2937;
-}
-
-/* ================= SCORE COLORS ================= */
-
-.score0 {
-  color: #94a3b8;
-}
-
-.score25 {
-  color: #dc2626;
-}
-
-.score50 {
-  color: #f59e0b;
-}
-
-.score75 {
-  color: #16a34a;
-}
-
-.score100 {
-  color: #059669;
-}
-
-/* ================= RISK SUMMARY ================= */
-
-.riskFinal {
-  margin-top: 12px;
-  padding-top: 12px;
-  border-top: 1px solid #e5e7eb;
+.metricRow {
   display: flex;
   justify-content: space-between;
+  padding: 6px 0;
   font-size: 14px;
+}
+
+.totalRow {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px dashed #e2e8f0;
+  display: flex;
+  justify-content: space-between;
   font-weight: 600;
 }
 
-/* ================= RISK PROFILES ================= */
+/* ================= CTA ================= */
 
-.riskVeryAttractive {
-  border-color: #059669;
-  background: #ecfdf5;
+.ctaBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 18px;
+  font-size: 14px;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(135deg, #ca1a1a 0%, rgb(12, 73, 240) 100%);
+  color: #ffffff;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
-.riskAttractive {
-  border-color: #16a34a;
-  background: #f0fdf4;
-}
-
-.riskAcceptable {
-  border-color: #facc15;
-  background: #fefce8;
-}
-
-.riskCautionary {
-  border-color: #f59e0b;
-  background: #fffbeb;
-}
-
-.riskUnsatisfactory {
-  border-color: #fb923c;
-  background: #fff7ed;
-}
-
-.riskUnacceptable {
-  border-color: #dc2626;
-  background: #fef2f2;
+.ctaBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);
 }
 
 /* ================= LOADING ================= */
 
 .loadingWrap {
   position: fixed;
-  inset: 0; // full viewport
+  inset: 0;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-}
-
-.loadingAnim {
-  width: 260px;
-  height: 260px;
-}
-
-.loadingText {
-  margin-top: 8px;
-  font-size: 14px;
-  color: #64748b;
-}
-
-/* ================= RIGHT-SIDE FINANCIAL HELP PANEL ================= */
-
-.financialHelpPanel {
-  width: 380px;
-  flex-shrink: 0;
-
-  background: #ffffff;
-  border-left: 1px solid #e5e7eb;
-  box-shadow: -8px 0 24px rgba(0, 0, 0, 0.08);
-
-  padding: 20px;
-
-  display: flex;
   flex-direction: column;
 }
+/* ===== FORCE TEXT BLACK (SAFE VERSION) ===== */
 
-.panelHeader {
+.page h1,
+.page h2,
+.page h3,
+.page h4,
+.page p,
+.page span,
+.page strong,
+.page small,
+.page label {
+  color: #0f172a !important;
+}
+
+/* ===== RISK BACKGROUND ONLY (NO COLOR) ===== */
+
+.riskVeryAttractive {
+  border: 1px solid #059669;
+  background: #ecfdf5;
+}
+
+.riskAttractive {
+  border: 1px solid #16a34a;
+  background: #f0fdf4;
+}
+
+.riskAcceptable {
+  border: 1px solid #facc15;
+  background: #fefce8;
+}
+
+.riskCautionary {
+  border: 1px solid #f59e0b;
+  background: #fffbeb;
+}
+
+.riskUnsatisfactory {
+  border: 1px solid #fb923c;
+  background: #fff7ed;
+}
+
+.riskUnacceptable {
+  border: 1px solid #dc2626;
+  background: #fef2f2;
+}
+/* ===== Financial Block (Match Qualitative Style) ===== */
+
+.metricBlock {
+  margin-bottom: 14px;
+}
+
+.metricHeader {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+.metricHeader span {
+  color: #334155;
+}
+
+.metricHeader strong {
+  font-weight: 600;
+}
+
+/* Reuse existing progress bar */
+
+.progressBar {
+  height: 6px;
+  background: #e5e7eb;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: #3b82f6; /* Blue like Industry style */
+  border-radius: 4px;
+}
+.cardHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 12px;
 }
 
-.panelClose {
+.points {
+  font-size: 15px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.breakdownBtn {
   background: none;
   border: none;
-  cursor: pointer;
-  color: #64748b;
-
-  &:hover {
-    color: #0f172a;
-  }
-}
-
-/* ================= RESPONSIVE ================= */
-
-@media (max-width: 1024px) {
-  .bottomGrid {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 768px) {
-  .page {
-    padding: 24px;
-  }
-
-  .content {
-    padding: 20px;
-  }
-
-  .metricRow {
-    grid-template-columns: 1fr;
-    gap: 4px;
-  }
-
-  .metricValue,
-  .metricScore {
-    text-align: left;
-  }
-
-  .financialHelpPanel {
-    width: 100%;
-  }
-}
-
-.mainContent {
-  flex: 1;
-  padding: 40px;
-
-  display: flex;
-  flex-direction: column;
-}
-
-.dealTypeTabs {
-  display: flex;
-  gap: 6px;
-  margin-bottom: 12px;
-}
-
-.dealTab {
-  padding: 6px 12px;
+  color: #2563eb;
   font-size: 13px;
-  border-radius: 8px;
-  background: #f3f4f6;
-  color: #374151;
-  border: 1px solid #e5e7eb;
   cursor: pointer;
-  transition: all 0.15s ease;
-
-  &:hover {
-    background: #e5e7eb;
-  }
+  padding: 0;
+  margin: 8px 0 14px 0; /* 🔥 add bottom spacing */
 }
 
-.active {
-  background: #111827;
-  color: #ffffff;
-  border-color: #111827;
+.breakdownBtn:hover {
+  text-decoration: underline;
 }
-/* =========================
-   Risk Summary – Compact
-========================= */
 
-.riskHeadline {
+.footerRow {
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px dashed #e2e8f0;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-top: 12px;
-  padding: 10px 12px;
-  border-radius: 10px;
-  background: #f9fafb;
-  cursor: pointer;
-
-  strong {
-    font-size: 14px;
-    font-weight: 600;
-    color: #111827;
-  }
-}
-
-.scoreMain {
-  font-size: 22px;
-  font-weight: 700;
-  color: #111827;
-  font-variant-numeric: tabular-nums;
-}
-
-/* subtle helper text */
-.breakdownHint {
-  margin-top: 6px;
-  font-size: 12px;
-  color: #9ca3af; // gray-400
-  text-align: right;
-}
-
-/* =========================
-   Hidden Breakdown
-========================= */
-
-.breakdown {
-  margin-top: 10px;
-  padding-top: 8px;
-  border-top: 1px dashed rgba(0, 0, 0, 0.08);
-}
-
-.metricRowMuted {
-  display: flex;
-  justify-content: space-between;
-  padding: 6px 0;
   font-size: 13px;
-  color: #6b7280; // gray-500
-
-  span:last-child {
-    font-weight: 500;
-    font-variant-numeric: tabular-nums;
-  }
-}
-.ctaBtn {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-
-  // padding: 14px 28px;
-  // font-size: 16px;
-  // border-radius: 14px;
-
-  padding: 10px 20px;
-  font-size: 14px;
-  border-radius: 12px;
-
-  border: none;
-
-  background: linear-gradient(135deg, #ca1a1a 0%, rgb(12, 73, 240) 100%);
-  color: #ffffff;
-
-  font-weight: 700;
-  letter-spacing: 0.3px;
-
-  box-shadow:
-    0 6px 14px rgba(37, 99, 235, 0.35),
-    0 12px 28px rgba(37, 99, 235, 0.25);
-
-  cursor: pointer;
-  transition: all 0.2s ease;
-
-  svg {
-    flex-shrink: 0;
-  }
-
-  &:hover {
-    transform: translateY(-3px);
-    box-shadow:
-      0 10px 20px rgba(37, 99, 235, 0.4),
-      0 16px 36px rgba(37, 99, 235, 0.3);
-  }
-
-  &:active {
-    transform: translateY(0);
-    box-shadow: 0 4px 10px rgba(37, 99, 235, 0.25);
-  }
+  font-weight: 600;
 }
