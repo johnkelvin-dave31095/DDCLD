@@ -236,12 +236,26 @@
 /* ================= LOADING ================= */
 
 .loadingWrap {
-  position: fixed;
+  position: fixed; /* centers on whole screen */
   inset: 0;
+
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
+
+  background: transparent; /* or rgba(255,255,255,0.6) if you want overlay */
+}
+
+.loadingAnim {
+  width: 300px; /* smaller */
+  height: 300px; /* smaller */
+}
+
+.loadingText {
+  margin-top: 8px;
+  font-size: 13px;
+  color: #64748b;
 }
 /* ===== FORCE TEXT BLACK (SAFE VERSION) ===== */
 
@@ -357,4 +371,121 @@
   justify-content: space-between;
   font-size: 13px;
   font-weight: 600;
+}
+.metricBlock {
+  padding: 14px 0;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.metricHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.metricLabel {
+  font-size: 14px;
+  font-weight: 500;
+  color: #1e293b;
+}
+
+.metricRight {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+}
+
+.inputValue {
+  font-size: 15px; /* was 13px */
+  font-weight: 600; /* semi-bold */
+  color: #0f172a; /* darker */
+  letter-spacing: 0.2px;
+}
+
+.scoreValue {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.progressBar {
+  height: 6px;
+  background: #e2e8f0;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  border-radius: 6px;
+  transition:
+    width 0.4s ease,
+    background 0.3s ease;
+}
+
+/* Score-based colors */
+.barHigh {
+  background: #16a34a; // green
+}
+
+.barMid {
+  background: #f59e0b; // orange
+}
+
+.barLow {
+  background: #ef4444; // red
+}
+
+/* MODAL */
+
+/* Overlay */
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+
+  animation: fadeIn 0.2s ease;
+}
+
+/* Modal */
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(8px);
+  z-index: 9999;
+}
+
+.modalCenter {
+  min-height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+}
+
+/* OUTER SHELL (handles curves) */
+.modalShell {
+  width: 900px;
+  max-height: 90vh;
+
+  background: #ffffff;
+  border-radius: 24px;
+
+  overflow: hidden; /* Clips corners perfectly */
+  box-shadow:
+    0 60px 120px rgba(0, 0, 0, 0.35),
+    0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+/* INNER SCROLL LAYER */
+.modalScroll {
+  max-height: 90vh;
+  overflow-y: auto;
 }

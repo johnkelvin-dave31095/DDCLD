@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { X, FileText } from "lucide-react";
+import { X, FileText, ShieldCheck } from "lucide-react";
 import { getFounderFinancialRef } from "../api/founders";
 import type { FinancialMetric } from "../api/founders";
 import styles from "./FinancialHelpRef.module.scss";
@@ -9,25 +9,19 @@ type Props = {
   onClose: () => void;
 };
 
-/* ================= HELPERS ================= */
-
 function formatNumericValue(value: number): string {
-  // Percent-style values
   if (value > 0 && value < 1) {
     return `${(value * 100).toFixed(0)}%`;
   }
 
-  // Billions
   if (Math.abs(value) >= 1_000_000_000) {
-    return `$${(value / 1_000_000_000).toFixed(1)} billion`;
+    return `$${(value / 1_000_000_000).toFixed(1)}B`;
   }
 
-  // Millions
   if (Math.abs(value) >= 1_000_000) {
-    return `$${(value / 1_000_000).toFixed(0)} M`;
+    return `$${(value / 1_000_000).toFixed(1)}M`;
   }
 
-  // Thousands
   if (Math.abs(value) >= 1_000) {
     return value.toLocaleString();
   }
@@ -35,13 +29,9 @@ function formatNumericValue(value: number): string {
   return value.toFixed(2);
 }
 
-/* ================= COMPONENT ================= */
-
 export default function FinancialHelpRef({ founder_id, onClose }: Props) {
   const [loading, setLoading] = useState(false);
   const [metrics, setMetrics] = useState<FinancialMetric[]>([]);
-
-  /* ================= FETCH ================= */
 
   useEffect(() => {
     if (!founder_id) return;
@@ -61,13 +51,10 @@ export default function FinancialHelpRef({ founder_id, onClose }: Props) {
     }
 
     load();
-
     return () => {
       mounted = false;
     };
   }, [founder_id]);
-
-  /* ================= GROUP BY FILE ================= */
 
   const files = useMemo(() => {
     return metrics.reduce<Record<string, FinancialMetric[]>>((acc, m) => {
@@ -80,19 +67,30 @@ export default function FinancialHelpRef({ founder_id, onClose }: Props) {
 
   const fileEntries = Object.entries(files);
 
-  /* ================= RENDER ================= */
-
   return (
-    <aside className={styles.panel}>
-      {/* HEADER */}
+    <div className={styles.wrapper}>
+      {/* Header */}
       <div className={styles.header}>
-        <h3>Financial References</h3>
+        <div className={styles.headerLeft}>
+          <div className={styles.iconWrap}>
+            <FileText size={20} strokeWidth={2.2} />
+          </div>
+
+          <div>
+            <div className={styles.title}>Financial References</div>
+            <div className={styles.subtitle}>
+              <ShieldCheck size={14} strokeWidth={2} />
+              <span>Verified source documents & extracted metrics</span>
+            </div>
+          </div>
+        </div>
+
         <button
           className={styles.closeBtn}
           onClick={onClose}
           aria-label="Close"
         >
-          <X size={16} />
+          <X size={20} strokeWidth={2.2} />
         </button>
       </div>
 
@@ -108,9 +106,8 @@ export default function FinancialHelpRef({ founder_id, onClose }: Props) {
         <div className={styles.fileList}>
           {fileEntries.map(([filename, rows]) => (
             <div key={filename} className={styles.fileCard}>
-              {/* FILE HEADER */}
               <div className={styles.fileHeader}>
-                <FileText size={14} />
+                <FileText size={18} strokeWidth={2} />
                 {rows[0].sharepoint_url ? (
                   <a
                     href={rows[0].sharepoint_url}
@@ -125,25 +122,18 @@ export default function FinancialHelpRef({ founder_id, onClose }: Props) {
                 )}
               </div>
 
-              {/* METRICS */}
-              <div className={styles.metricList}>
+              <div className={styles.metricGrid}>
                 {rows.map((m, index) => (
                   <div
                     key={`${m.metric_key}-${m.sub_key}-${index}`}
-                    className={styles.metricRow}
+                    className={styles.metricCard}
                   >
-                    {/* 1️⃣ metric_key */}
-                    <div className={styles.metricKey}>
-                      {m.metric_key}
-                      {m.sub_key && (
-                        <span className={styles.metricSubKey}>
-                          {" "}
-                          ({m.sub_key})
-                        </span>
-                      )}
-                    </div>
+                    <div className={styles.metricLabel}>{m.metric_key}</div>
 
-                    {/* 2️⃣ value */}
+                    {m.sub_key && (
+                      <div className={styles.metricSub}>{m.sub_key}</div>
+                    )}
+
                     {typeof m.value_numeric === "number" && (
                       <div className={styles.metricValue}>
                         {formatNumericValue(m.value_numeric)}
@@ -156,6 +146,6 @@ export default function FinancialHelpRef({ founder_id, onClose }: Props) {
           ))}
         </div>
       )}
-    </aside>
+    </div>
   );
 }

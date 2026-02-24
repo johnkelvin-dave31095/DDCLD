@@ -2,17 +2,17 @@ import { useEffect, useState, useMemo } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 import Lottie from "lottie-react";
-import loadingAnim from "../assets/orange-loading.json";
+import loadingAnim from "../assets/search.json";
 
 import { post } from "../api/http";
 import { getFounderScore } from "../api/founders";
 import type { FounderScore } from "../api/founders";
 
 import FounderScoreTable from "../components/FounderScoreTable";
-import StatusBadge from "../components/StatusBadge";
+
 import FinancialHelpRef from "../components/FinancialHelpRef";
 
-import { BarChart3, TrendingUp, ShieldAlert, FileText } from "lucide-react";
+import { BarChart3, TrendingUp, FileText } from "lucide-react";
 
 import styles from "./FounderDetailV2.module.scss";
 
@@ -72,7 +72,7 @@ export default function FounderDetailV2() {
   const navigate = useNavigate();
   const founder_id = Number(founderId);
 
-  const [companyName, setCompanyName] = useState("—");
+  const [, setCompanyName] = useState("—");
   const [score, setScore] = useState<FounderScoreVM | null>(null);
   const [loading, setLoading] = useState(true);
   const [showFinancialHelp, setShowFinancialHelp] = useState(false);
@@ -91,7 +91,26 @@ export default function FounderDetailV2() {
     });
   }, [founder_id]);
 
+  useEffect(() => {
+    if (!showFinancialHelp) return;
+
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setShowFinancialHelp(false);
+      }
+    };
+
+    document.addEventListener("keydown", handleEsc);
+
+    return () => {
+      document.removeEventListener("keydown", handleEsc);
+      document.body.style.overflow = "auto";
+    };
+  }, [showFinancialHelp]);
+
   const metricScores = score?.financials?.metric_scores ?? {};
+  const financialDetails = score?.financials?.details ?? null;
+
   const risk = score?.risk_summary?.find(
     (r) => r.deal_type_id === activeDealType,
   );
@@ -112,15 +131,60 @@ export default function FounderDetailV2() {
     );
   }, [metricScores]);
 
+  // ✅ Added helper (no logic removed)
+  const formatValue = (value: any, key: string) => {
+    if (value === null || value === undefined) return "-";
+
+    const num = Number(value);
+    const lowerKey = key.toLowerCase();
+
+    // Percent-based metrics (FIRST — important)
+    if (lowerKey.includes("percent") || lowerKey.includes("pct")) {
+      return `${num.toFixed(1)}%`;
+    }
+
+    // Months
+    if (lowerKey.includes("months")) {
+      return `${num.toFixed(1)} mo`;
+    }
+
+    // Currency (but exclude ARR_percent)
+    if (
+      lowerKey.includes("revenue") ||
+      lowerKey.includes("cash") ||
+      lowerKey.includes("debt") ||
+      lowerKey.includes("assets")
+    ) {
+      return `$${num.toLocaleString(undefined, {
+        maximumFractionDigits: 2,
+      })}`;
+    }
+
+    return num.toLocaleString(undefined, {
+      maximumFractionDigits: 2,
+    });
+  };
+
+  // if (loading || !score) {
+  //   return (
+  //     <div className={styles.loadingWrap}>
+  //       <Lottie animationData={loadingAnim} loop />
+  //       <p>Loading assessment…</p>
+  //     </div>
+  //   );
+  // }
   if (loading || !score) {
     return (
       <div className={styles.loadingWrap}>
-        <Lottie animationData={loadingAnim} loop />
-        <p>Loading assessment…</p>
+        <Lottie
+          animationData={loadingAnim}
+          loop
+          className={styles.loadingAnim}
+        />
+        {/* <p className={styles.loadingText}>Loading assessment…</p> */}
       </div>
     );
   }
-
   return (
     <div className={styles.page}>
       <div className={styles.container}>
@@ -130,7 +194,7 @@ export default function FounderDetailV2() {
               className={styles.back}
               onClick={() => navigate("/dashboard")}
             >
-              ← Back to Dashboard
+              ← Back to Opportunity
             </button>
             <p className={styles.subtitle}>Founder ID: {founder_id}</p>
           </div>
@@ -220,18 +284,38 @@ export default function FounderDetailV2() {
               </h3>
 
               {FINANCIAL_ROWS.map((row) => {
-                const value = metricScores?.historical?.[row.key] ?? 0;
+                const scoreValue = metricScores?.historical?.[row.key] ?? 0;
+
+                const inputValue =
+                  financialDetails?.financial_assessment?.[row.key];
+
                 return (
                   <div key={row.key} className={styles.metricBlock}>
                     <div className={styles.metricHeader}>
-                      <span>{row.label}</span>
-                      <strong>{value}</strong>
+                      <span className={styles.metricLabel}>{row.label}</span>
+
+                      <div className={styles.metricRight}>
+                        <span className={styles.inputValue}>
+                          {formatValue(inputValue, row.key)}
+                        </span>
+
+                        {/* Plain score number */}
+                        <strong className={styles.scoreValue}>
+                          {scoreValue}
+                        </strong>
+                      </div>
                     </div>
 
                     <div className={styles.progressBar}>
                       <div
-                        className={styles.progressFill}
-                        style={{ width: `${value}%` }}
+                        className={`${styles.progressFill} ${
+                          scoreValue >= 75
+                            ? styles.barHigh
+                            : scoreValue >= 50
+                              ? styles.barMid
+                              : styles.barLow
+                        }`}
+                        style={{ width: `${scoreValue}%` }}
                       />
                     </div>
                   </div>
@@ -251,18 +335,28 @@ export default function FounderDetailV2() {
               </h3>
 
               {FINANCIAL_ROWS.map((row) => {
-                const value = metricScores?.proforma?.[row.key] ?? 0;
+                const scoreValue = metricScores?.proforma?.[row.key] ?? 0;
+
+                const inputValue =
+                  financialDetails?.pro_forma_outputs?.[row.key];
+
                 return (
                   <div key={row.key} className={styles.metricBlock}>
                     <div className={styles.metricHeader}>
                       <span>{row.label}</span>
-                      <strong>{value}</strong>
+
+                      <div className={styles.metricValues}>
+                        <span className={styles.inputValue}>
+                          {formatValue(inputValue, row.key)}
+                        </span>
+                        <strong>{scoreValue}</strong>
+                      </div>
                     </div>
 
                     <div className={styles.progressBar}>
                       <div
                         className={styles.progressFill}
-                        style={{ width: `${value}%` }}
+                        style={{ width: `${scoreValue}%` }}
                       />
                     </div>
                   </div>
@@ -279,10 +373,18 @@ export default function FounderDetailV2() {
       </div>
 
       {showFinancialHelp && (
-        <FinancialHelpRef
-          founder_id={founder_id}
-          onClose={() => setShowFinancialHelp(false)}
-        />
+        <div className={styles.modalOverlay}>
+          <div className={styles.modalCenter}>
+            <div className={styles.modalShell}>
+              <div className={styles.modalScroll}>
+                <FinancialHelpRef
+                  founder_id={founder_id}
+                  onClose={() => setShowFinancialHelp(false)}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );
