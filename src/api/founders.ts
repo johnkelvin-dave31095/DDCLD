@@ -302,3 +302,18 @@ export function getFounderFinancialRef(data: { founder_id: number }) {
     founder_id: data.founder_id,
   });
 }
+
+/* ================= OPPORTUNITY PDF ================= */
+
+export type GenerateOpportunityPdfResponse = {
+  pdf_url: string;
+  file_name: string;
+  company: string;
+  generated_at: string;
+};
+
+export function generateOpportunityPdf(data: { founder_id: number }) {
+  return post<GenerateOpportunityPdfResponse>("/founders/opportunitypdf", {
+    founder_id: data.founder_id,
+  });
+}

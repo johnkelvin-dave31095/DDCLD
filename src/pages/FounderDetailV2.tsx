@@ -12,7 +12,9 @@ import FounderScoreTable from "../components/FounderScoreTable";
 
 import FinancialHelpRef from "../components/FinancialHelpRef";
 
-import { BarChart3, TrendingUp, FileText } from "lucide-react";
+import GeneratePdfModal from "../components/GeneratePDFModal";
+
+import { BarChart3, TrendingUp, FileText, FileDown } from "lucide-react";
 
 import styles from "./FounderDetailV2.module.scss";
 
@@ -76,6 +78,7 @@ export default function FounderDetailV2() {
   const [score, setScore] = useState<FounderScoreVM | null>(null);
   const [loading, setLoading] = useState(true);
   const [showFinancialHelp, setShowFinancialHelp] = useState(false);
+  const [showPdfModal, setShowPdfModal] = useState(false);
   const [activeDealType, setActiveDealType] = useState(DEAL_TYPES[0].id);
 
   useEffect(() => {
@@ -199,13 +202,31 @@ export default function FounderDetailV2() {
             <p className={styles.subtitle}>Founder ID: {founder_id}</p>
           </div>
 
-          <button
+          {/* <button
             className={styles.ctaBtn}
             onClick={() => setShowFinancialHelp(true)}
           >
             <FileText size={18} />
             View Financial Sources
-          </button>
+          </button> */}
+
+          <div className={styles.topActions}>
+            <button
+              className={styles.ctaBtn}
+              onClick={() => setShowFinancialHelp(true)}
+            >
+              <FileText size={18} />
+              View Financial Sources
+            </button>
+
+            <button
+              className={styles.ctaBtn}
+              onClick={() => setShowPdfModal(true)}
+            >
+              <FileDown size={18} />
+              Generate PDF Report
+            </button>
+          </div>
         </div>
 
         {risk && (
@@ -385,6 +406,13 @@ export default function FounderDetailV2() {
             </div>
           </div>
         </div>
+      )}
+
+      {showPdfModal && (
+        <GeneratePdfModal
+          founder_id={founder_id}
+          onClose={() => setShowPdfModal(false)}
+        />
       )}
     </div>
   );
