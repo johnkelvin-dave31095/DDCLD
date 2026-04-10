@@ -10,6 +10,8 @@ import FounderDetail from "./pages/FounderDetailV2";
 import MissingInfo from "./pages/MissingInfo";
 import "./global.scss";
 
+import AnalyzePage from "./pages/AnalyzePage";
+
 export default function App() {
   return (
     <BrowserRouter>
@@ -28,6 +30,7 @@ export default function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           {/* <Route path="/settings" element={<Settings />} /> */}
           <Route path="/founders/:founderId" element={<FounderDetail />} />
+          <Route path="/excelanalyzer" element={<AnalyzePage />} />
         </Route>
       </Routes>
     </BrowserRouter>

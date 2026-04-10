@@ -1,6 +1,12 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { Users, KeyRound, PanelLeftClose, PanelLeftOpen } from "lucide-react";
+import {
+  Users,
+  KeyRound,
+  PanelLeftClose,
+  PanelLeftOpen,
+  Layers,
+} from "lucide-react";
 
 import logo from "../assets/logo.png";
 
@@ -51,12 +57,12 @@ export default function Sidebar() {
             collapsed={collapsed}
           />
 
-          {/* <NavItem
-            to="/overview/batches"
+          <NavItem
+            to="/excelanalyzer"
             icon={<Layers size={18} />}
-            label=""
+            label="Excel Analyzer"
             collapsed={collapsed}
-          /> */}
+          />
         </div>
 
         {/* ENRICHMENT */}
