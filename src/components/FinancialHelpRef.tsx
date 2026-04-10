@@ -86,6 +86,7 @@ export default function FinancialHelpRef({ founder_id, onClose }: Props) {
         </div>
 
         <button
+          type="button"
           className={styles.closeBtn}
           onClick={onClose}
           aria-label="Close"

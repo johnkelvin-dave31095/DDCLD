@@ -1,20 +1,25 @@
-import { useEffect, useState, useMemo } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-
+import { useEffect, useMemo, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import Lottie from "lottie-react";
-import loadingAnim from "../assets/search.json";
 
 import { post } from "../api/http";
 import { getFounderScore } from "../api/founders";
 import type { FounderScore } from "../api/founders";
-
-import FounderScoreTable from "../components/FounderScoreTable";
+import loadingAnim from "../assets/search.json";
 
 import FinancialHelpRef from "../components/FinancialHelpRef";
-
+import FounderScoreTable from "../components/FounderScoreTable";
 import GeneratePdfModal from "../components/GeneratePDFModal";
 
-import { BarChart3, TrendingUp, FileText, FileDown } from "lucide-react";
+import {
+  ArrowLeft,
+  BarChart3,
+  BadgeCheck,
+  FileDown,
+  FileText,
+  Scale,
+  TrendingUp,
+} from "lucide-react";
 
 import styles from "./FounderDetailV2.module.scss";
 
@@ -74,7 +79,7 @@ export default function FounderDetailV2() {
   const navigate = useNavigate();
   const founder_id = Number(founderId);
 
-  const [, setCompanyName] = useState("—");
+  const [companyName, setCompanyName] = useState("Opportunity");
   const [score, setScore] = useState<FounderScoreVM | null>(null);
   const [loading, setLoading] = useState(true);
   const [showFinancialHelp, setShowFinancialHelp] = useState(false);
@@ -88,7 +93,7 @@ export default function FounderDetailV2() {
       post<DetailResponse>("/founders", { founder_id }),
       getFounderScore(founder_id),
     ]).then(([detailRes, scoreRes]) => {
-      setCompanyName(detailRes.company_name ?? "—");
+      setCompanyName(detailRes.company_name || "Opportunity");
       setScore(scoreRes as FounderScoreVM);
       setLoading(false);
     });
@@ -97,8 +102,8 @@ export default function FounderDetailV2() {
   useEffect(() => {
     if (!showFinancialHelp) return;
 
-    const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
+    const handleEsc = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
         setShowFinancialHelp(false);
       }
     };
@@ -111,287 +116,208 @@ export default function FounderDetailV2() {
     };
   }, [showFinancialHelp]);
 
-  const metricScores = score?.financials?.metric_scores ?? {};
+  const metricScores = useMemo(
+    () => score?.financials?.metric_scores ?? {},
+    [score],
+  );
   const financialDetails = score?.financials?.details ?? null;
 
   const risk = score?.risk_summary?.find(
-    (r) => r.deal_type_id === activeDealType,
+    (item) => item.deal_type_id === activeDealType,
   );
 
   const historicalTotal = useMemo(() => {
-    if (!metricScores?.historical) return 0;
+    if (!metricScores.historical) return 0;
     return Object.values(metricScores.historical).reduce(
-      (sum, val) => sum + Number(val || 0),
+      (sum, value) => sum + Number(value || 0),
       0,
     );
   }, [metricScores]);
 
   const proformaTotal = useMemo(() => {
-    if (!metricScores?.proforma) return 0;
+    if (!metricScores.proforma) return 0;
     return Object.values(metricScores.proforma).reduce(
-      (sum, val) => sum + Number(val || 0),
+      (sum, value) => sum + Number(value || 0),
       0,
     );
   }, [metricScores]);
 
-  // ✅ Added helper (no logic removed)
-  const formatValue = (value: any, key: string) => {
-    if (value === null || value === undefined) return "-";
+  const qualitativeAverage = useMemo(() => {
+    if (!score?.areas?.length) return 0;
 
-    const num = Number(value);
-    const lowerKey = key.toLowerCase();
+    const total = score.areas.reduce(
+      (sum, area) => sum + Number(area.score_summary?.average || 0),
+      0,
+    );
 
-    // Percent-based metrics (FIRST — important)
-    if (lowerKey.includes("percent") || lowerKey.includes("pct")) {
-      return `${num.toFixed(1)}%`;
-    }
+    return total / score.areas.length;
+  }, [score]);
 
-    // Months
-    if (lowerKey.includes("months")) {
-      return `${num.toFixed(1)} mo`;
-    }
-
-    // Currency (but exclude ARR_percent)
-    if (
-      lowerKey.includes("revenue") ||
-      lowerKey.includes("cash") ||
-      lowerKey.includes("debt") ||
-      lowerKey.includes("assets")
-    ) {
-      return `$${num.toLocaleString(undefined, {
-        maximumFractionDigits: 2,
-      })}`;
-    }
-
-    return num.toLocaleString(undefined, {
-      maximumFractionDigits: 2,
-    });
-  };
-
-  // if (loading || !score) {
-  //   return (
-  //     <div className={styles.loadingWrap}>
-  //       <Lottie animationData={loadingAnim} loop />
-  //       <p>Loading assessment…</p>
-  //     </div>
-  //   );
-  // }
   if (loading || !score) {
     return (
       <div className={styles.loadingWrap}>
-        <Lottie
-          animationData={loadingAnim}
-          loop
-          className={styles.loadingAnim}
-        />
-        {/* <p className={styles.loadingText}>Loading assessment…</p> */}
+        <Lottie animationData={loadingAnim} loop className={styles.loadingAnim} />
+        <p className={styles.loadingText}>Loading assessment...</p>
       </div>
     );
   }
+
   return (
     <div className={styles.page}>
-      <div className={styles.container}>
-        <div className={styles.topBar}>
-          <div>
-            <button
-              className={styles.back}
-              onClick={() => navigate("/dashboard")}
-            >
-              ← Back to Opportunity
-            </button>
-            <p className={styles.subtitle}>Founder ID: {founder_id}</p>
-          </div>
+      <header className={styles.header}>
+        <button
+          type="button"
+          className={styles.back}
+          onClick={() => navigate("/dashboard")}
+        >
+          <ArrowLeft size={16} />
+          Back to Opportunity
+        </button>
 
-          {/* <button
-            className={styles.ctaBtn}
+        <div className={styles.headerActions}>
+          <button
+            type="button"
+            className={styles.secondaryBtn}
             onClick={() => setShowFinancialHelp(true)}
           >
             <FileText size={18} />
-            View Financial Sources
-          </button> */}
+            Financial Sources
+          </button>
 
-          <div className={styles.topActions}>
-            <button
-              className={styles.ctaBtn}
-              onClick={() => setShowFinancialHelp(true)}
-            >
-              <FileText size={18} />
-              View Financial Sources
-            </button>
+          <button
+            type="button"
+            className={styles.primaryBtn}
+            onClick={() => setShowPdfModal(true)}
+          >
+            <FileDown size={18} />
+            Generate PDF
+          </button>
+        </div>
+      </header>
 
-            <button
-              className={styles.ctaBtn}
-              onClick={() => setShowPdfModal(true)}
-            >
-              <FileDown size={18} />
-              Generate PDF Report
-            </button>
+      <section className={styles.hero}>
+        <div className={styles.heroCopy}>
+          <span className={styles.kicker}>Founder ID {founder_id}</span>
+          <h1>{companyName}</h1>
+          <p>
+            Review risk posture, qualitative criteria, and financial assessment
+            outputs for this opportunity.
+          </p>
+        </div>
+
+        <div className={styles.riskPanel}>
+          <span className={styles.riskLabel}>Risk Assessment</span>
+          <strong>{risk ? risk.total_weighted_score.toFixed(2) : "-"}</strong>
+          <div className={styles.riskBadge}>
+            {risk?.risk_label || "No risk summary"}
+          </div>
+        </div>
+      </section>
+
+      <section className={styles.statsGrid}>
+        <SummaryCard
+          icon={<Scale size={19} />}
+          label="Active deal type"
+          value={DEAL_TYPES.find((deal) => deal.id === activeDealType)?.label || "-"}
+        />
+        <SummaryCard
+          icon={<BarChart3 size={19} />}
+          label="Historical total"
+          value={historicalTotal.toLocaleString()}
+        />
+        <SummaryCard
+          icon={<TrendingUp size={19} />}
+          label="Pro forma total"
+          value={proformaTotal.toLocaleString()}
+        />
+        <SummaryCard
+          icon={<BadgeCheck size={19} />}
+          label="Qualitative avg."
+          value={qualitativeAverage.toFixed(2)}
+        />
+      </section>
+
+      {risk && (
+        <section className={styles.riskCard}>
+          <div className={styles.riskHeader}>
+            <div>
+              <h2>Risk model</h2>
+              <p>
+                Switch deal type to compare how historical, pro forma, and
+                qualitative scores contribute to the weighted result.
+              </p>
+            </div>
+
+            <div className={styles.dealTypeTabs}>
+              {DEAL_TYPES.map((dealType) => (
+                <button
+                  type="button"
+                  key={dealType.id}
+                  className={`${styles.dealTab} ${
+                    activeDealType === dealType.id ? styles.active : ""
+                  }`}
+                  onClick={() => setActiveDealType(dealType.id)}
+                >
+                  {dealType.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className={styles.breakdownGrid}>
+            <BreakdownItem
+              label="Historical"
+              score={risk.financial_historical.score}
+              weight={risk.financial_historical.weight}
+            />
+            <BreakdownItem
+              label="Pro Forma"
+              score={risk.financial_proforma.score}
+              weight={risk.financial_proforma.weight}
+            />
+            <BreakdownItem
+              label="Qualitative"
+              score={risk.qualitative.score}
+              weight={risk.qualitative.weight}
+            />
+          </div>
+        </section>
+      )}
+
+      <section className={styles.sectionBlock}>
+        <div className={styles.sectionHeading}>
+          <div>
+            <span>Qualitative review</span>
+            <h2>Assessment areas</h2>
           </div>
         </div>
 
-        {risk && (
-          <div className={styles.heroWrapper}>
-            <div className={styles.heroCard}>
-              <h2>Risk Assessment</h2>
-              <div className={styles.heroScore}>
-                {risk.total_weighted_score.toFixed(2)}
-              </div>
+        <FounderScoreTable founder_id={founder_id} areas={score.areas} />
+      </section>
 
-              <div className={styles.riskBadge}>{risk.risk_label}</div>
+      <section className={styles.financialGrid}>
+        <FinancialCard
+          title="Financial - Historical"
+          icon={<BarChart3 size={17} />}
+          rows={FINANCIAL_ROWS.map((row) => ({
+            ...row,
+            score: metricScores.historical?.[row.key] ?? 0,
+            value: financialDetails?.financial_assessment?.[row.key],
+          }))}
+          total={historicalTotal}
+        />
 
-              <div className={styles.dealTypeTabs}>
-                {DEAL_TYPES.map((dt) => (
-                  <button
-                    key={dt.id}
-                    className={`${styles.dealTab} ${
-                      activeDealType === dt.id ? styles.active : ""
-                    }`}
-                    onClick={() => setActiveDealType(dt.id)}
-                  >
-                    {dt.label}
-                  </button>
-                ))}
-              </div>
-
-              <div className={styles.heroBreakdown}>
-                <div className={styles.breakdownItem}>
-                  <span>Historical</span>
-                  <strong>{risk.financial_historical.score}</strong>
-                  <div className={styles.progressMini}>
-                    <div
-                      className={`${styles.progressMiniFill} ${styles.greenBar}`}
-                      style={{ width: `${risk.financial_historical.score}%` }}
-                    />
-                  </div>
-                  <small>{risk.financial_historical.weight}% Weight</small>
-                </div>
-
-                <div className={styles.breakdownItem}>
-                  <span>Pro Forma</span>
-                  <strong>{risk.financial_proforma.score}</strong>
-                  <div className={styles.progressMini}>
-                    <div
-                      className={`${styles.progressMiniFill} ${styles.grayBar}`}
-                      style={{ width: `${risk.financial_proforma.score}%` }}
-                    />
-                  </div>
-                  <small>{risk.financial_proforma.weight}% Weight</small>
-                </div>
-
-                <div className={styles.breakdownItem}>
-                  <span>Qualitative</span>
-                  <strong>{risk.qualitative.score}</strong>
-                  <div className={styles.progressMini}>
-                    <div
-                      className={`${styles.progressMiniFill} ${styles.orangeBar}`}
-                      style={{ width: `${risk.qualitative.score}%` }}
-                    />
-                  </div>
-                  <small>{risk.qualitative.weight}% Weight</small>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        <div className={styles.content}>
-          <FounderScoreTable founder_id={founder_id} areas={score.areas} />
-
-          <div className={styles.bottomGrid}>
-            {/* Financial – Historical */}
-            <div className={styles.card}>
-              <h3>
-                <BarChart3 size={16} /> Financial – Historical
-              </h3>
-
-              {FINANCIAL_ROWS.map((row) => {
-                const scoreValue = metricScores?.historical?.[row.key] ?? 0;
-
-                const inputValue =
-                  financialDetails?.financial_assessment?.[row.key];
-
-                return (
-                  <div key={row.key} className={styles.metricBlock}>
-                    <div className={styles.metricHeader}>
-                      <span className={styles.metricLabel}>{row.label}</span>
-
-                      <div className={styles.metricRight}>
-                        <span className={styles.inputValue}>
-                          {formatValue(inputValue, row.key)}
-                        </span>
-
-                        {/* Plain score number */}
-                        <strong className={styles.scoreValue}>
-                          {scoreValue}
-                        </strong>
-                      </div>
-                    </div>
-
-                    <div className={styles.progressBar}>
-                      <div
-                        className={`${styles.progressFill} ${
-                          scoreValue >= 75
-                            ? styles.barHigh
-                            : scoreValue >= 50
-                              ? styles.barMid
-                              : styles.barLow
-                        }`}
-                        style={{ width: `${scoreValue}%` }}
-                      />
-                    </div>
-                  </div>
-                );
-              })}
-
-              <div className={styles.totalRow}>
-                Section Total
-                <strong>{historicalTotal}</strong>
-              </div>
-            </div>
-
-            {/* Financial – Pro Forma */}
-            <div className={styles.card}>
-              <h3>
-                <TrendingUp size={16} /> Financial – Pro Forma
-              </h3>
-
-              {FINANCIAL_ROWS.map((row) => {
-                const scoreValue = metricScores?.proforma?.[row.key] ?? 0;
-
-                const inputValue =
-                  financialDetails?.pro_forma_outputs?.[row.key];
-
-                return (
-                  <div key={row.key} className={styles.metricBlock}>
-                    <div className={styles.metricHeader}>
-                      <span>{row.label}</span>
-
-                      <div className={styles.metricValues}>
-                        <span className={styles.inputValue}>
-                          {formatValue(inputValue, row.key)}
-                        </span>
-                        <strong>{scoreValue}</strong>
-                      </div>
-                    </div>
-
-                    <div className={styles.progressBar}>
-                      <div
-                        className={styles.progressFill}
-                        style={{ width: `${scoreValue}%` }}
-                      />
-                    </div>
-                  </div>
-                );
-              })}
-
-              <div className={styles.totalRow}>
-                Section Total
-                <strong>{proformaTotal}</strong>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+        <FinancialCard
+          title="Financial - Pro Forma"
+          icon={<TrendingUp size={17} />}
+          rows={FINANCIAL_ROWS.map((row) => ({
+            ...row,
+            score: metricScores.proforma?.[row.key] ?? 0,
+            value: financialDetails?.pro_forma_outputs?.[row.key],
+          }))}
+          total={proformaTotal}
+        />
+      </section>
 
       {showFinancialHelp && (
         <div className={styles.modalOverlay}>
@@ -416,4 +342,138 @@ export default function FounderDetailV2() {
       )}
     </div>
   );
+}
+
+function SummaryCard({
+  icon,
+  label,
+  value,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  value: string;
+}) {
+  return (
+    <div className={styles.summaryCard}>
+      <div className={styles.summaryIcon}>{icon}</div>
+      <div>
+        <span>{label}</span>
+        <strong>{value}</strong>
+      </div>
+    </div>
+  );
+}
+
+function BreakdownItem({
+  label,
+  score,
+  weight,
+}: {
+  label: string;
+  score: number;
+  weight: number;
+}) {
+  return (
+    <div className={styles.breakdownItem}>
+      <div className={styles.breakdownTop}>
+        <span>{label}</span>
+        <strong>{score}</strong>
+      </div>
+      <div className={styles.progressBar}>
+        <div
+          className={styles.progressFill}
+          style={{ width: `${clampScore(score)}%` }}
+        />
+      </div>
+      <small>{weight}% weight</small>
+    </div>
+  );
+}
+
+function FinancialCard({
+  title,
+  icon,
+  rows,
+  total,
+}: {
+  title: string;
+  icon: React.ReactNode;
+  rows: Array<{
+    key: string;
+    label: string;
+    score: number;
+    value: number | null | undefined;
+  }>;
+  total: number;
+}) {
+  return (
+    <div className={styles.financialCard}>
+      <h3>
+        {icon}
+        {title}
+      </h3>
+
+      {rows.map((row) => (
+        <div key={row.key} className={styles.metricBlock}>
+          <div className={styles.metricHeader}>
+            <span className={styles.metricLabel}>{row.label}</span>
+            <div className={styles.metricValues}>
+              <span className={styles.inputValue}>
+                {formatValue(row.value, row.key)}
+              </span>
+              <strong>{row.score}</strong>
+            </div>
+          </div>
+
+          <div className={styles.progressBar}>
+            <div
+              className={`${styles.progressFill} ${
+                row.score >= 75
+                  ? styles.barHigh
+                  : row.score >= 50
+                    ? styles.barMid
+                    : styles.barLow
+              }`}
+              style={{ width: `${clampScore(row.score)}%` }}
+            />
+          </div>
+        </div>
+      ))}
+
+      <div className={styles.totalRow}>
+        Section Total
+        <strong>{total}</strong>
+      </div>
+    </div>
+  );
+}
+
+function formatValue(value: number | null | undefined, key: string) {
+  if (value === null || value === undefined) return "-";
+
+  const num = Number(value);
+  const lowerKey = key.toLowerCase();
+
+  if (lowerKey.includes("percent") || lowerKey.includes("pct")) {
+    return `${num.toFixed(1)}%`;
+  }
+
+  if (lowerKey.includes("months")) {
+    return `${num.toFixed(1)} mo`;
+  }
+
+  if (
+    lowerKey.includes("revenue") ||
+    lowerKey.includes("cash") ||
+    lowerKey.includes("debt") ||
+    lowerKey.includes("assets")
+  ) {
+    return `$${num.toLocaleString(undefined, { maximumFractionDigits: 2 })}`;
+  }
+
+  return num.toLocaleString(undefined, { maximumFractionDigits: 2 });
+}
+
+function clampScore(score: number) {
+  return Math.max(0, Math.min(100, Number(score) || 0));
 }

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import type { ReactNode } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Users, Factory, Megaphone, Briefcase } from "lucide-react";
+import { Users, Factory, Megaphone, Briefcase, X } from "lucide-react";
 
 import styles from "./FounderScoreTable.module.scss";
 
@@ -68,7 +68,7 @@ export default function FounderScoreTable({ areas }: Props) {
           );
           const maxPoints = area.criteria.length * 5;
           const avg = area.score_summary?.average ?? 0;
-          const progressPercent = (totalPoints / maxPoints) * 100;
+          const progressPercent = maxPoints ? (totalPoints / maxPoints) * 100 : 0;
 
           const areaColorClass =
             area.key === "management"
@@ -104,6 +104,7 @@ export default function FounderScoreTable({ areas }: Props) {
               </div>
 
               <button
+                type="button"
                 className={styles.breakdownBtn}
                 onClick={() => setActiveArea(area)}
               >
@@ -141,10 +142,12 @@ export default function FounderScoreTable({ areas }: Props) {
               <div className={styles.modalHeader}>
                 <h3>{activeArea.name}</h3>
                 <button
+                  type="button"
                   className={styles.closeBtn}
                   onClick={() => setActiveArea(null)}
+                  aria-label="Close breakdown"
                 >
-                  ✕
+                  <X size={18} />
                 </button>
               </div>
 
@@ -160,7 +163,7 @@ export default function FounderScoreTable({ areas }: Props) {
                       </span>
                     </div>
 
-                    <div className={styles.answerBox}>{c.answer || "—"}</div>
+                    <div className={styles.answerBox}>{c.answer || "-"}</div>
 
                     <div className={styles.rule}>
                       <strong>Rule:</strong> {c.rule_description}

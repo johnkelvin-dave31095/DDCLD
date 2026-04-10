@@ -8,17 +8,19 @@ import styles from "./AppLayout.module.scss";
 export default function AppLayout() {
   return (
     <div className={styles.wrapper}>
-      <Sidebar />
+      <div className={styles.workspace}>
+        <Sidebar />
 
-      <div className={styles.mainArea}>
-        <Topbar />
+        <div className={styles.mainArea}>
+          <Topbar />
 
-        <div className={styles.content}>
-          <Outlet />
+          <div className={styles.content}>
+            <Outlet />
+          </div>
         </div>
-
-        <Footer />
       </div>
+
+      <Footer />
     </div>
   );
 }

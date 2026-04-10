@@ -1,54 +1,37 @@
-import React from "react";
+import { useState } from "react";
+import type { ReactNode } from "react";
+import { Layers, PanelLeftClose, PanelLeftOpen, Users } from "lucide-react";
 import { NavLink } from "react-router-dom";
-import {
-  Users,
-  KeyRound,
-  PanelLeftClose,
-  PanelLeftOpen,
-  Layers,
-} from "lucide-react";
 
 import logo from "../assets/logo.png";
-
-// import logo from "../assets/white-logo.png";
-
 import styles from "./Sidebar.module.scss";
 
 export default function Sidebar() {
-  const role = localStorage.getItem("role");
-  const isAdmin = role === "admin";
-
-  // CHANGE: collapsed state
-  const [collapsed, setCollapsed] = React.useState(false);
+  const [collapsed, setCollapsed] = useState(false);
 
   return (
     <aside className={`${styles.sidebar} ${collapsed ? styles.collapsed : ""}`}>
-      {/* LOGO + TOGGLE */}
-      <div className={styles.logoRow}>
-        {/* {!collapsed && (
-          <img src={logo} alt="Ametryx" className={styles.logoImage} />
-        )} */}
-
-        {/* CHANGE: collapse button */}
+      <div className={styles.header}>
         <button
+          type="button"
           className={styles.collapseBtn}
-          onClick={() => setCollapsed((v) => !v)}
+          onClick={() => setCollapsed((value) => !value)}
           aria-label="Toggle sidebar"
         >
           {collapsed ? (
-            <PanelLeftOpen size={20} />
+            <PanelLeftOpen size={18} />
           ) : (
-            <PanelLeftClose size={20} />
+            <PanelLeftClose size={18} />
           )}
         </button>
+
+        <img src={logo} alt="Lotus Domaine" className={styles.brandLogo} />
+
       </div>
 
-      <img src={logo} alt="Lotus Domaine" className={styles.brandLogo} />
-
-      <nav className={styles.nav}>
-        {/* OVERVIEW */}
+      <nav className={styles.nav} aria-label="Main navigation">
         <div className={styles.section}>
-          {!collapsed && <div className={styles.sectionTitle}>Overview</div>}
+          {!collapsed && <div className={styles.sectionTitle}>Workspace</div>}
 
           <NavItem
             to="/dashboard"
@@ -64,66 +47,11 @@ export default function Sidebar() {
             collapsed={collapsed}
           />
         </div>
-
-        {/* ENRICHMENT */}
-        {/* <div className={styles.section}>
-          {!collapsed && <div className={styles.sectionTitle}>Enrichment</div>}
-
-          <NavItem
-            to="/enrichment/batches"
-            icon={<Zap size={18} />}
-            label="Batch Enrichment"
-            collapsed={collapsed}
-          />
-
-          <NavItem
-            to="/enrichment/people"
-            icon={<Users size={18} />}
-            label="People *coming soon*"
-            collapsed={collapsed}
-          />
-
-          <NavItem
-            to="/enrichment/companies"
-            icon={<Building2 size={18} />}
-            label="Companies *coming soon*"
-            collapsed={collapsed}
-          />
-        </div> */}
-
-        {/* ADMIN */}
-        {isAdmin && (
-          <div className={styles.section}>
-            {!collapsed && <div className={styles.sectionTitle}>Admin</div>}
-
-            <NavItem
-              to="/admin/tokens"
-              icon={<KeyRound size={18} />}
-              label="Add Tokens"
-              collapsed={collapsed}
-            />
-          </div>
-        )}
-
-        {/* LOGOUT */}
-        {/* <div className={styles.section}>
-          <button className={styles.logoutLink} onClick={handleLogout}>
-            <span className={styles.activeBar} />
-            <span className={styles.icon}>
-              <LogOut size={18} />
-            </span>
-
-            {!collapsed && <span className={styles.label}>Logout</span>}
-          </button>
-        </div> */}
       </nav>
     </aside>
   );
 }
 
-/* =====================
-   NAV ITEM
-===================== */
 function NavItem({
   to,
   icon,
@@ -131,21 +59,20 @@ function NavItem({
   collapsed,
 }: {
   to: string;
-  icon: React.ReactNode;
+  icon: ReactNode;
   label: string;
   collapsed: boolean;
 }) {
   return (
     <NavLink
       to={to}
+      title={collapsed ? label : undefined}
       className={({ isActive }) =>
         `${styles.link} ${isActive ? styles.active : ""}`
       }
     >
       <span className={styles.activeBar} />
       <span className={styles.icon}>{icon}</span>
-
-      {/* CHANGE: hide label when collapsed */}
       {!collapsed && <span className={styles.label}>{label}</span>}
     </NavLink>
   );

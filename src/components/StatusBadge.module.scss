@@ -2,50 +2,73 @@
   position: relative;
   display: inline-flex;
   align-items: center;
-  padding: 4px 10px;
+  padding: 6px 10px;
   border-radius: 999px;
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 900;
+  line-height: 1;
   white-space: nowrap;
   cursor: default;
+}
 
-  /* Tooltip bubble */
-  &::after {
-    content: attr(data-tooltip);
-    position: absolute;
-    bottom: calc(100% + 8px);
-    left: 50%;
-    transform: translateX(-50%);
-    background: #0f172a;
-    color: #f8fafc;
-    padding: 6px 10px;
-    border-radius: 6px;
-    font-size: 11px;
-    font-weight: 500;
-    white-space: nowrap;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.15s ease, transform 0.15s ease;
-    z-index: 20;
-  }
+.almostComplete {
+  color: #047857;
+  background: #dff7ec;
+}
 
-  /* Tooltip arrow */
-  &::before {
-    content: "";
-    position: absolute;
-    bottom: calc(100% + 2px);
-    left: 50%;
-    transform: translateX(-50%);
-    border-width: 6px;
-    border-style: solid;
-    border-color: #0f172a transparent transparent transparent;
-    opacity: 0;
-    transition: opacity 0.15s ease;
-    z-index: 20;
-  }
+.needsMoreData {
+  color: #b45309;
+  background: #fef3c7;
+}
 
-  &:hover::after,
-  &:hover::before {
-    opacity: 1;
-  }
+.incomplete {
+  color: #b91c1c;
+  background: #fee2e2;
+}
+
+.statusBadge::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 9px);
+  left: 50%;
+  z-index: 20;
+  max-width: min(260px, calc(100vw - 40px));
+  padding: 8px 10px;
+  border-radius: 10px;
+  color: #fffafb;
+  background: #1d1719;
+  box-shadow: 0 12px 28px rgba(24, 10, 14, 0.22);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.35;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%) translateY(4px);
+  transition:
+    opacity 0.15s ease,
+    transform 0.15s ease;
+  white-space: normal;
+}
+
+.statusBadge::before {
+  content: "";
+  position: absolute;
+  bottom: calc(100% + 4px);
+  left: 50%;
+  z-index: 20;
+  border-width: 5px 5px 0;
+  border-style: solid;
+  border-color: #1d1719 transparent transparent;
+  opacity: 0;
+  transform: translateX(-50%);
+  transition: opacity 0.15s ease;
+}
+
+.statusBadge:hover::after,
+.statusBadge:hover::before {
+  opacity: 1;
+}
+
+.statusBadge:hover::after {
+  transform: translateX(-50%) translateY(0);
 }

@@ -4,8 +4,8 @@ export default function Footer() {
   return (
     <footer className={styles.footer}>
       <p>
-        © 2025 Due Diligence Lotus Domaine | Powered by OakTech Systems |
-        Version 1.3.8
+        (c) 2025 Due Diligence Lotus Domaine - Powered by OakTech Systems -
+        v1.3.8
       </p>
     </footer>
   );

@@ -4,47 +4,39 @@ type Status = "almost_complete" | "needs_more_data" | "incomplete";
 
 type StatusConfig = {
   label: string;
-  color: string;
-  background: string;
   tooltip: string;
+  className: string;
 };
 
 const STATUS_CONFIG: Record<Status, StatusConfig> = {
   almost_complete: {
     label: "Almost Complete",
-    color: "#15803d",
-    background: "#dcfce7",
     tooltip: "At least 80% of checklist items are completed.",
+    className: styles.almostComplete,
   },
   needs_more_data: {
     label: "Needs More Data",
-    color: "#b45309",
-    background: "#fef3c7",
-    tooltip: "40–79% of checklist items are completed.",
+    tooltip: "40-79% of checklist items are completed.",
+    className: styles.needsMoreData,
   },
   incomplete: {
     label: "Incomplete",
-    color: "#b91c1c",
-    background: "#fee2e2",
     tooltip: "Less than 40% of checklist items are completed.",
+    className: styles.incomplete,
   },
 };
 
 export type StatusBadgeProps = {
-  status: string; // runtime-safe
+  status: string;
 };
 
 export default function StatusBadge({ status }: StatusBadgeProps) {
-  const config = STATUS_CONFIG[status as Status] ?? STATUS_CONFIG["incomplete"];
+  const config = STATUS_CONFIG[status as Status] ?? STATUS_CONFIG.incomplete;
 
   return (
     <span
-      className={styles.statusBadge}
+      className={`${styles.statusBadge} ${config.className}`}
       data-tooltip={config.tooltip}
-      style={{
-        color: config.color,
-        backgroundColor: config.background,
-      }}
     >
       {config.label}
     </span>

@@ -2,6 +2,8 @@
 
 body {
   font-family: "Inter", sans-serif;
+  display: block !important;
+  overflow-x: hidden;
 }
 
 h1,
@@ -17,5 +19,14 @@ body,
   padding: 0 !important;
   height: 100% !important;
   width: 100% !important;
+  max-width: 100% !important;
   background: #000 !important;
+}
+
+html {
+  overflow-x: hidden;
+}
+
+* {
+  box-sizing: border-box;
 }

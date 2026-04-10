@@ -1,120 +1,95 @@
-/* =============================
-   PDF MODAL OVERLAY
-============================= */
-
 .pdfModalOverlay {
   position: fixed;
   inset: 0;
-
-  background: rgba(10, 10, 20, 0.85);
-  backdrop-filter: blur(8px);
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
   z-index: 9999;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(24, 10, 14, 0.68);
+  backdrop-filter: blur(10px);
 }
-
-/* =============================
-   MODAL CARD
-============================= */
 
 .pdfModal {
-  width: 460px;
-  padding: 48px 46px;
-
-  border-radius: 16px;
-
-  background: #ffffff;
-
-  border: 1px solid rgba(255, 255, 255, 0.08);
-
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
-
+  width: min(460px, 100%);
+  padding: 38px;
+  border: 1px solid rgba(139, 47, 60, 0.18);
+  border-radius: 28px;
+  color: #1d1719;
+  background:
+    linear-gradient(180deg, #ffffff, #fff8f9),
+    radial-gradient(circle at top, rgba(139, 47, 60, 0.08), transparent 36%);
+  box-shadow: 0 30px 90px rgba(24, 10, 14, 0.36);
   text-align: center;
-
-  color: #ffffff;
-
-  opacity: 1 !important;
-  filter: none !important;
 }
-
-/* =============================
-   ANIMATION
-============================= */
 
 .pdfModalAnim {
-  width: 140px;
-  height: 140px;
-  margin: 0 auto 20px auto;
+  width: 138px;
+  height: 138px;
+  margin: 0 auto 18px;
 }
-
-/* =============================
-   TITLE
-============================= */
 
 .pdfModalTitle {
-  font-size: 22px;
-  font-weight: 700;
-
-  color: #ddcbcb;
-
-  margin-bottom: 20px;
+  margin: 0 0 16px;
+  color: #171114;
+  font-family: "Poppins", sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.035em;
 }
 
-/* =============================
-   STEP TEXT
-============================= */
+.pdfModalStep,
+.pdfModalDone {
+  margin: 0 0 18px;
+  font-size: 15px;
+  font-weight: 900;
+}
 
 .pdfModalStep {
-  font-size: 16px;
-  font-weight: 600;
-
-  margin-bottom: 20px;
-
-  color: #ffffff;
+  color: #8b2f3c;
 }
 
-/* =============================
-   SUCCESS
-============================= */
-
 .pdfModalDone {
-  font-size: 18px;
-  font-weight: 600;
-
-  color: #ffffff;
-
-  margin-top: 10px;
+  color: #047857;
 }
 
 .pdfModalFileName {
-  font-size: 14px;
-
-  color: #d1d5db;
-
-  margin-top: 6px;
+  margin: -8px 0 0;
+  overflow: hidden;
+  color: #6d5e63;
+  font-size: 13px;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
-
-/* =============================
-   PROGRESS BAR
-============================= */
 
 .pdfModalProgressBar {
   width: 100%;
-  height: 6px;
-
-  background: rgba(255, 255, 255, 0.15);
-
-  border-radius: 6px;
+  height: 9px;
   overflow: hidden;
+  border-radius: 999px;
+  background: #ead0d5;
 }
 
 .pdfModalProgressFill {
   height: 100%;
-
-  background: linear-gradient(90deg, #7c3aed, #22c55e, #38bdf8);
-
+  border-radius: inherit;
+  background: linear-gradient(90deg, #8b2f3c, #a03a49, #c45f6d);
   transition: width 0.6s ease;
+}
+
+@media (max-width: 520px) {
+  .pdfModalOverlay {
+    padding: 14px;
+  }
+
+  .pdfModal {
+    padding: 28px 22px;
+    border-radius: 22px;
+  }
+
+  .pdfModalAnim {
+    width: 112px;
+    height: 112px;
+  }
 }

@@ -1,224 +1,401 @@
-/* ======================================================
-   Page
-   ====================================================== */
-
 .page {
-  padding: 40px;
-  min-height: 100vh;
-  background: radial-gradient(
-    1200px circle at top,
-    #f8fafc 0%,
-    #f1f5f9 60%,
-    #eef2f7 100%
-  );
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  color: #1d1719;
 }
 
-.loading {
-  padding: 32px;
-  font-size: 14px;
-  color: #475569;
+.hero {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 28px;
+  border: 1px solid rgba(139, 47, 60, 0.12);
+  border-radius: 28px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(255, 245, 247, 0.94)),
+    radial-gradient(circle at top right, rgba(139, 47, 60, 0.12), transparent 34%);
+  box-shadow: 0 20px 60px rgba(88, 28, 38, 0.08);
 }
 
-/* ======================================================
-   Header
-   ====================================================== */
-
-.header {
-  margin-bottom: 24px;
-
-  h1 {
-    font-size: 28px;
-    font-weight: 600;
-    letter-spacing: -0.02em;
-    color: #0f172a;
-  }
+.kicker {
+  display: inline-flex;
+  width: fit-content;
+  padding: 7px 10px;
+  border-radius: 999px;
+  color: #8b2f3c;
+  background: #f8e8eb;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
-.subtitle {
-  font-size: 14px;
-  color: #64748b;
+.hero h1 {
+  margin: 14px 0 10px;
+  color: #151114;
+  font-family: "Poppins", sans-serif;
+  font-size: clamp(32px, 4vw, 48px);
+  line-height: 1;
+  letter-spacing: -0.045em;
 }
 
-/* ======================================================
-   Card
-   ====================================================== */
+.hero p {
+  max-width: 680px;
+  margin: 0;
+  color: #706267;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.heroBadge {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 11px 14px;
+  border: 1px solid #ead0d5;
+  border-radius: 999px;
+  color: #8b2f3c;
+  background: #ffffff;
+  font-size: 13px;
+  font-weight: 900;
+  box-shadow: 0 10px 24px rgba(88, 28, 38, 0.07);
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.statCard {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px;
+  border: 1px solid rgba(139, 47, 60, 0.12);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 12px 34px rgba(88, 28, 38, 0.06);
+}
+
+.statIcon {
+  width: 46px;
+  height: 46px;
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  border-radius: 16px;
+  color: #8b2f3c;
+  background: #f8e8eb;
+}
+
+.statCard span {
+  display: block;
+  color: #75666a;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.statCard strong {
+  display: block;
+  margin-top: 3px;
+  color: #171114;
+  font-size: 26px;
+  line-height: 1;
+}
 
 .card {
-  background: rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(10px);
-  border-radius: 16px;
-  box-shadow:
-    0 1px 3px rgba(0, 0, 0, 0.04),
-    0 8px 24px rgba(0, 0, 0, 0.04);
+  min-width: 0;
   overflow: hidden;
+  border: 1px solid rgba(139, 47, 60, 0.12);
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 20px 60px rgba(88, 28, 38, 0.08);
 }
 
-/* ======================================================
-   Table
-   ====================================================== */
+.cardHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 22px 24px;
+  border-bottom: 1px solid #f0dce0;
+}
+
+.cardHeader h2 {
+  margin: 0 0 6px;
+  color: #171114;
+  font-family: "Poppins", sans-serif;
+  font-size: 22px;
+  letter-spacing: -0.03em;
+}
+
+.cardHeader p {
+  margin: 0;
+  color: #75666a;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.queueMeta {
+  flex: 0 0 auto;
+  padding: 8px 11px;
+  border-radius: 999px;
+  color: #8b2f3c;
+  background: #fff5f6;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.tableWrap {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
 
 .table {
   width: 100%;
   border-collapse: collapse;
+  table-layout: fixed;
   font-size: 14px;
 }
 
-.table thead th {
-  position: sticky;
-  top: 0;
-  z-index: 2;
-  background: rgba(248, 250, 252, 0.9);
-  backdrop-filter: blur(6px);
-  padding: 14px 18px;
-  font-weight: 600;
-  color: #475569;
-  border-bottom: 1px solid #e5e7eb;
+.table th {
+  padding: 13px 14px;
+  color: #8a7b80;
+  background: #fffafb;
+  border-bottom: 1px solid #f0dce0;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
   text-align: left;
+  text-transform: uppercase;
 }
 
-.table tbody td {
-  padding: 16px 18px;
-  border-bottom: 1px solid #f1f5f9;
-  vertical-align: top; /* 🔑 keeps columns aligned */
+.table th:nth-child(1) {
+  width: 24%;
 }
 
-/* ======================================================
-   SAFE row hover (NO transform, NO flex)
-   ====================================================== */
-
-.table tbody tr:hover td {
-  background: #f8e9e99d;
+.table th:nth-child(2) {
+  width: 16%;
 }
 
-/* ======================================================
-   Company
-   ====================================================== */
+.table th:nth-child(3) {
+  width: 25%;
+}
+
+.table th:nth-child(4) {
+  width: 8%;
+}
+
+.table th:nth-child(5) {
+  width: 13%;
+}
+
+.table th:nth-child(6) {
+  width: 12%;
+}
+
+.table th:nth-child(7) {
+  width: 44px;
+}
+
+.table td {
+  min-width: 0;
+  padding: 16px 14px;
+  border-bottom: 1px solid #f5e8eb;
+  color: #30272a;
+  vertical-align: middle;
+}
+
+.row {
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.row:hover td {
+  background: #fff6f7;
+}
 
 .companyCell {
   display: flex;
-  flex-direction: column;
-  gap: 4px;
+  align-items: center;
+  gap: 12px;
+}
+
+.companyMark {
+  width: 42px;
+  height: 42px;
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  color: #ffffff;
+  background: linear-gradient(135deg, #8b2f3c, #65352b);
+  font-size: 13px;
+  font-weight: 900;
 }
 
 .companyName {
-  font-weight: 600;
-  color: #0f172a;
+  overflow: hidden;
+  color: #171114;
+  font-weight: 900;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .companyMeta {
+  margin-top: 4px;
+  color: #817277;
   font-size: 12px;
-  color: #64748b;
 }
-
-/* ======================================================
-   Progress
-   ====================================================== */
 
 .progressWrap {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 7px;
 }
 
-.progressText {
+.progressTopline {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  color: #6f6065;
   font-size: 12px;
-  color: #64748b;
+  font-weight: 800;
+}
+
+.progressTopline small {
+  color: #9c8f93;
+  font-size: 12px;
+  font-weight: 800;
 }
 
 .progressBar {
-  height: 6px;
-  background: #e5e7eb;
-  border-radius: 999px;
+  height: 8px;
   overflow: hidden;
+  border-radius: 999px;
+  background: #ead0d5;
 }
 
 .progressFill {
   height: 100%;
-  border-radius: 999px;
-  background: linear-gradient(90deg, #8b2f3c, #911b2b);
+  border-radius: inherit;
+  background: linear-gradient(90deg, #8b2f3c, #c45f6d);
 }
 
-/* ======================================================
-   Files
-   ====================================================== */
-
-.files {
-  text-align: center;
-  color: #475569;
+.sectionGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
 }
 
-/* ======================================================
-   Status
-   ====================================================== */
-
-.statusCell {
-  padding-top: 10px;
-}
-
-/* ======================================================
-   Action
-   ====================================================== */
-
-.actionCell {
-  padding-top: 10px;
-  text-align: center;
-}
-
-/* Placeholder dash */
-.actionPlaceholder {
-  color: #cbd5f5;
-  font-size: 14px;
-}
-
-/* ======================================================
-   Run Assessment Button
-   ====================================================== */
-
-.runBtn {
-  padding: 8px 16px;
-  font-size: 13px;
-  font-weight: 600;
-  border-radius: 10px;
-  border: 1px solid #7c3aed;
-  background: #7c3aed;
-  color: #ffffff;
-  cursor: pointer;
-  transition:
-    background 0.15s ease,
-    box-shadow 0.15s ease;
-
-  &:hover {
-    background: #6d28d9;
-    box-shadow: 0 4px 10px rgba(124, 58, 237, 0.25);
-  }
-
-  &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    box-shadow: none;
-  }
-}
-
-/* ======================================================
-   Table header icons
-   ====================================================== */
-
-.th {
+.sectionChip {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
+  padding: 6px 8px;
+  border-radius: 999px;
+  color: #6d5e63;
+  background: #f8f1f2;
+  font-size: 12px;
+  font-weight: 800;
+}
 
-  svg {
-    color: #64748b;
-  }
+.sectionChip strong {
+  color: #8b2f3c;
+  font-weight: 900;
+}
+
+.filePill,
+.processing,
+.done,
+.muted {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  white-space: nowrap;
+}
+
+.filePill {
+  padding: 7px 10px;
+  border-radius: 999px;
+  color: #5c4f53;
+  background: #f8f1f2;
+  font-weight: 900;
+}
+
+.statusCell {
+  white-space: nowrap;
+}
+
+.processingCell {
+  color: #6b6064;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.processing {
+  color: #8b2f3c;
+}
+
+.done {
+  color: #047857;
+}
+
+.muted {
+  color: #9ca3af;
+}
+
+.openCell {
+  color: #8b2f3c;
+  text-align: right;
+}
+
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+.emptyState {
+  min-height: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 32px;
+  color: #817277;
+  text-align: center;
+}
+
+.emptyState svg {
+  color: #8b2f3c;
+}
+
+.emptyState h3 {
+  margin: 14px 0 6px;
+  color: #171114;
+}
+
+.emptyState p {
+  margin: 0;
 }
 
 .loadingWrap {
-  min-height: 240px;
+  min-height: 60vh;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
 }
 
 .loadingAnim {
@@ -228,37 +405,9 @@
 
 .loadingText {
   margin-top: 12px;
+  color: #706267;
   font-size: 14px;
-  color: #64748b;
-}
-
-.countCell {
-  color: #64748b; // or your brand dark
-  font-weight: 500;
-}
-
-.processingCell {
-  font-size: 13px;
-  color: #6b7280;
-}
-
-.processing {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.spin {
-  animation: spin 1s linear infinite;
-}
-
-.done {
-  color: #15803d;
-  font-weight: 500;
-}
-
-.muted {
-  color: #9ca3af;
+  font-weight: 800;
 }
 
 @keyframes spin {
@@ -266,15 +415,129 @@
     transform: rotate(360deg);
   }
 }
-.financialCell {
-  min-width: 90px;
-  text-align: center;
-  white-space: nowrap;
+
+@media (max-width: 1180px) {
+  .statsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .table {
+    table-layout: auto;
+  }
+
+  .table th:nth-child(3),
+  .table td:nth-child(3) {
+    display: none;
+  }
 }
 
-.countCell {
-  color: #64748b;
-  font-weight: 500;
-  min-width: 70px;
-  white-space: nowrap;
+@media (max-width: 860px) {
+  .hero,
+  .cardHeader {
+    flex-direction: column;
+  }
+
+  .heroBadge,
+  .queueMeta {
+    width: fit-content;
+  }
+
+  .table,
+  .table thead,
+  .table tbody,
+  .table th,
+  .table td,
+  .table tr {
+    display: block;
+  }
+
+  .table thead {
+    display: none;
+  }
+
+  .table tbody {
+    display: grid;
+    gap: 12px;
+    padding: 14px;
+  }
+
+  .table td {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 10px 0;
+    border-bottom: 1px solid #f3e2e5;
+  }
+
+  .table td::before {
+    content: attr(data-label);
+    flex: 0 0 auto;
+    color: #8a7b80;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .table td.companyCell {
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 0;
+  }
+
+  .table td.companyCell::before,
+  .table td.openCell::before {
+    display: none;
+  }
+
+  .row {
+    padding: 16px;
+    border: 1px solid #f0dce0;
+    border-radius: 20px;
+    background: #ffffff;
+  }
+
+  .row:hover td {
+    background: transparent;
+  }
+
+  .progressWrap {
+    width: min(220px, 56%);
+  }
+
+  .sectionGrid {
+    justify-content: flex-end;
+  }
+
+  .openCell {
+    justify-content: flex-end !important;
+    padding-bottom: 0 !important;
+    border-bottom: none !important;
+  }
+}
+
+@media (max-width: 620px) {
+  .hero,
+  .cardHeader {
+    padding: 22px;
+  }
+
+  .statsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .table td {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .progressWrap {
+    width: 100%;
+  }
+
+  .sectionGrid {
+    justify-content: flex-start;
+  }
 }

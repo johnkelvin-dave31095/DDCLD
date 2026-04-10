@@ -1,194 +1,210 @@
 .wrapper {
   display: flex;
   flex-direction: column;
+  color: #1d1719;
+  background: #fffafb;
 }
-
-/* ================= HEADER ================= */
 
 .header {
   display: flex;
-  justify-content: space-between;
   align-items: flex-start;
-
-  padding: 48px 64px 36px 64px;
-
-  background: linear-gradient(
-    90deg,
-    rgba(113, 73, 255, 0.08),
-    rgba(172, 101, 255, 0.05)
-  );
+  justify-content: space-between;
+  gap: 18px;
+  padding: 30px 34px 24px;
+  border-bottom: 1px solid #f0dce0;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(255, 245, 247, 0.94)),
+    radial-gradient(circle at top right, rgba(139, 47, 60, 0.12), transparent 34%);
 }
 
 .headerLeft {
+  min-width: 0;
   display: flex;
   align-items: flex-start;
-  gap: 18px;
+  gap: 14px;
 }
 
 .iconWrap {
-  width: 44px;
-  height: 44px;
-  border-radius: 14px;
-
-  background: linear-gradient(135deg, #8b2f3c, #ac65ff);
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.iconWrap svg {
-  color: white;
+  width: 46px;
+  height: 46px;
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  border-radius: 16px;
+  color: #ffffff;
+  background: linear-gradient(135deg, #8b2f3c, #65352b);
+  box-shadow: 0 12px 28px rgba(139, 47, 60, 0.24);
 }
 
 .title {
+  color: #171114;
+  font-family: "Poppins", sans-serif;
   font-size: 24px;
-  font-weight: 600;
-  color: #070842;
-  letter-spacing: -0.4px;
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.035em;
 }
 
 .subtitle {
   display: flex;
   align-items: center;
   gap: 8px;
-
-  font-size: 14px;
-  color: #4b5563;
-  margin-top: 10px;
+  margin-top: 9px;
+  color: #75666a;
+  font-size: 13px;
+  font-weight: 800;
 }
 
 .subtitle svg {
   color: #8b2f3c;
 }
 
-/* ================= CLOSE BUTTON ================= */
-
-/* ================= CLOSE BUTTON ================= */
-
 .closeBtn {
-  border: none;
-  background: transparent;
-
-  padding: 10px;
-  border-radius: 10px;
-
-  cursor: pointer;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  transition: all 0.2s ease;
-}
-
-.closeBtn svg {
+  width: 40px;
+  height: 40px;
+  flex: 0 0 auto;
+  display: inline-grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid #ead0d5;
+  border-radius: 999px;
   color: #8b2f3c;
-  transition: all 0.2s ease;
+  background: #ffffff;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
 }
 
 .closeBtn:hover {
-  background: rgba(113, 73, 255, 0.08);
-  transform: scale(1.05);
+  background: #f8e8eb;
+  transform: translateY(-1px);
 }
-
-.closeBtn:hover svg {
-  color: #070842;
-}
-
-/* ================= STATES ================= */
 
 .loading,
 .empty {
-  padding: 40px 72px;
+  margin: 0;
+  padding: 34px;
+  color: #75666a;
   font-size: 14px;
-  color: #6b7280;
+  font-weight: 800;
 }
-
-/* ================= FILE LIST ================= */
 
 .fileList {
-  padding: 48px 72px 72px 72px;
   display: flex;
   flex-direction: column;
-  gap: 72px;
+  gap: 18px;
+  padding: 24px 34px 34px;
 }
-
-/* ================= FILE CARD ================= */
 
 .fileCard {
-  padding: 40px;
-  border-radius: 24px;
-
+  overflow: hidden;
+  border: 1px solid #f0dce0;
+  border-radius: 22px;
   background: #ffffff;
-
-  border: 1px solid rgba(113, 73, 255, 0.08);
-
-  box-shadow: 0 20px 50px rgba(113, 73, 255, 0.05);
+  box-shadow: 0 14px 36px rgba(88, 28, 38, 0.06);
 }
-
-/* ================= FILE HEADER ================= */
 
 .fileHeader {
   display: flex;
   align-items: center;
-  gap: 14px;
-
-  font-size: 17px;
-  font-weight: 600;
-  color: #111827;
-
-  margin-bottom: 36px;
+  gap: 11px;
+  padding: 18px 20px;
+  border-bottom: 1px solid #f5e8eb;
+  color: #171114;
+  font-size: 15px;
+  font-weight: 900;
 }
 
 .fileHeader svg {
+  flex: 0 0 auto;
   color: #8b2f3c;
+}
+
+.fileLink,
+.fileName {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .fileLink {
+  color: #8b2f3c;
   text-decoration: none;
-  color: #070842;
-  transition: color 0.2s ease;
 }
 
 .fileLink:hover {
-  color: #8b2f3c;
+  text-decoration: underline;
 }
 
 .fileName {
-  color: #111827;
+  color: #171114;
 }
-
-/* ================= METRIC GRID ================= */
 
 .metricGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 48px 64px;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  padding: 18px;
 }
 
-/* ================= METRIC CARD ================= */
-
 .metricCard {
+  min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
+  padding: 14px;
+  border: 1px solid #f4e5e8;
+  border-radius: 16px;
+  background: #fffafb;
+}
+
+.metricLabel,
+.metricSub {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .metricLabel {
-  font-size: 12px;
-  color: #6b7280;
-  letter-spacing: 0.6px;
+  color: #8b2f3c;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
 .metricSub {
-  font-size: 13px;
-  color: #9ca3af;
+  color: #8a7b80;
+  font-size: 12px;
+  font-weight: 700;
 }
 
 .metricValue {
-  font-size: 28px;
-  font-weight: 600;
-  color: #070842;
+  color: #171114;
+  font-size: 24px;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+}
+
+@media (max-width: 640px) {
+  .header {
+    padding: 24px 20px 20px;
+  }
+
+  .fileList,
+  .loading,
+  .empty {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .title {
+    font-size: 21px;
+  }
+
+  .metricGrid {
+    grid-template-columns: 1fr;
+  }
 }
